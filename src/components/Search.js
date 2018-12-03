@@ -1,4 +1,21 @@
 import React, { Component } from "react";
+import Axios from "axios";
+
+
+class earthPhotos extends Component {
+  
+  
+  getPhotos = () => {
+    // Axios.get()
+  }
+  
+  render() {
+    <section>
+
+    </section>
+  }
+}
+
 
 class Search extends Component {
   render() {
