@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import EarthPhotos from "./EarthPhotos";
+
 
 class Search extends Component {
   render() {
@@ -23,6 +25,8 @@ class Search extends Component {
             id="userWeather"
             type="text" /> 
         </form>
+        {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
+        <EarthPhotos />
       </main>
     )
   }
