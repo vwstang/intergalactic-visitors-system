@@ -38,7 +38,7 @@ class EarthPhotos extends Component {
         per_page: 20
       }
     }).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       const urlList = res.data.photos.photo.map(photo => this.constructFlickrURL(photo))
       this.setState({
         photoList: urlList
