@@ -4,6 +4,7 @@ import apiKeys from '../data/secrets';
 import LocationSearchInput from "./Autocomplete";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
+import ReactDependentScript from 'react-dependent-script';
 
 
 class Search extends Component {
@@ -25,11 +26,15 @@ class Search extends Component {
         // location: "Toronto,ON",
       }
     }).then((res) => {
-      console.log(res);
+      console.log(res)
+      console.log('muffin')
     })
   }
 
-  
+  componentDidMount() {
+    console.log(`I'm alive!`)
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
@@ -46,15 +51,20 @@ class Search extends Component {
     //   placeQuery: ""
     // })
   }
-
+  
   render() {
     return (
       <main>
         <h2>Hello!!</h2>
         <p>Mapquest is so grown up wow</p>
         <form action="" onSubmit={this.handleSubmit}>
-          <label htmlFor="placeQuery">What continent would you like to visit on Earth?</label>
-
+          <label
+            htmlFor="placeQuery">What continent would you like to visit on Earth?</label>
+          <ReactDependentScript
+            scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
+          >
+            <LocationSearchInput onChange={this.handleChange} value={this.state.placeQuery} />
+          </ReactDependentScript>
           <label
             htmlFor="userLang">What languages are you interested in?</label>
           <input

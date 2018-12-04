@@ -24,8 +24,7 @@ class LocationSearchInput extends Component {
 			.catch(error => console.error('Error', error));
 	}
 
-  render() {
-    console.log("Hello");
+	render() {
 		return (
 			<PlacesAutocomplete
 				value={this.state.address}
