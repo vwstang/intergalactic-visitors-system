@@ -11,6 +11,8 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
+      qryLat: 0,
+      qryLng: 0,
       placeQuery: ""
     };
   }
@@ -26,20 +28,16 @@ class Search extends Component {
         // location: "Toronto,ON",
       }
     }).then((res) => {
-      console.log(res)
-      console.log('muffin')
+      console.log(res);
+      console.log('muffin');
     })
   }
 
   componentDidMount() {
-    console.log(`I'm alive!`)
+    console.log(`I'm alive!`);
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
+  handleChange = (e) => this.setState({ [e.target.id]: e.target.value })
   
   handleSubmit = (e) => {
     e.preventDefault();
@@ -50,6 +48,13 @@ class Search extends Component {
     // this.setState({
     //   placeQuery: ""
     // })
+  }
+
+  updateCoords = coords => {
+    this.setState({
+      qryLat: coords.lat,
+      qryLng: coords.lng
+    });
   }
   
   render() {
@@ -63,7 +68,7 @@ class Search extends Component {
           <ReactDependentScript
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
           >
-            <LocationSearchInput onChange={this.handleChange} value={this.state.placeQuery} />
+            <LocationSearchInput updateCoords={this.updateCoords} />
           </ReactDependentScript>
           <label
             htmlFor="userLang">What languages are you interested in?</label>
