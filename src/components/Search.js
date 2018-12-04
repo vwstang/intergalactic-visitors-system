@@ -1,20 +1,5 @@
 import React, { Component } from "react";
-import Axios from "axios";
-
-
-class earthPhotos extends Component {
-  
-  
-  getPhotos = () => {
-    // Axios.get()
-  }
-  
-  render() {
-    <section>
-
-    </section>
-  }
-}
+import EarthPhotos from "./EarthPhotos";
 
 
 class Search extends Component {
@@ -40,6 +25,8 @@ class Search extends Component {
             id="userWeather"
             type="text" /> 
         </form>
+        {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
+        <EarthPhotos />
       </main>
     )
   }
