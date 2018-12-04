@@ -3,9 +3,7 @@ import EarthPhotos from "./EarthPhotos";
 import axios from "axios";
 import apiKeys from '../data/secrets';
 import LocationSearchInput from "./Autocomplete"
-
-
-
+import EarthWeather from "./EarthWeather";
 
 
 class Search extends Component {
@@ -109,7 +107,8 @@ class Search extends Component {
         <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`}></script>
 
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
-        <EarthPhotos />
+        {/* <EarthPhotos /> */}
+        <EarthWeather />
       </main>
     )
   }
