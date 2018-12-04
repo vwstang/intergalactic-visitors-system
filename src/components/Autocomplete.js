@@ -11,21 +11,23 @@ import PlacesAutocomplete, {
 
 
 class LocationSearchInput extends Component {
-	constructor() {
-		super();
-		this.state = { address: '' };
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: ""
+    }
+  }
 
 	handleChange = address => {
 		this.setState({ address });
-	};
+	}
 
 	handleSelect = address => {
 		geocodeByAddress(address)
 			.then(results => getLatLng(results[0]))
 			.then(latLng => console.log('Success', latLng))
 			.catch(error => console.error('Error', error));
-	};
+	}
 
 	render() {
 		return (
@@ -67,7 +69,7 @@ class LocationSearchInput extends Component {
 					</div>
 				)}
 			</PlacesAutocomplete>
-		);
+		)
 	}
 }
 

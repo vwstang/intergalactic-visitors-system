@@ -11,12 +11,13 @@ class Search extends Component {
     super();
     this.state = {
       placeQuery: ""
-    }
+    };
   }
 
-
   getLocation = () => {
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+    const apiURL = "https://maps.googleapis.com/maps/api/geocode/json";
+
+    axios.get(apiURL, {
       params: {
         key: apiKeys.googlemaps,
         outputFormat: 'json',
@@ -24,11 +25,28 @@ class Search extends Component {
         // location: "Toronto,ON",
       }
     }).then((res) => {
-      console.log(res)
-      // console.log('muffin')
+      console.log(res);
     })
   }
 
+  
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
+  
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('hi')
+    
+    this.getLocation();
+    
+    // this.setState({
+    //   placeQuery: ""
+    // })
+  }
+     
   componentDidMount() {
     console.log(`I'm alive!`)
 
@@ -36,31 +54,14 @@ class Search extends Component {
 
   }
 
-
-
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('hi')
-
-    this.getLocation();
-
-    // this.setState({
-    //   placeQuery: ""
-    // })
-  }
-
-
-
   render() {
     return (
       <main>
+        <script
+        type="text/javascript"
+          src={`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`}
+        >
+        </script>
         <h2>Hello!!</h2>
         <p>Mapquest is so grown up wow</p>
         <form action="" onSubmit={this.handleSubmit}>
@@ -71,12 +72,10 @@ class Search extends Component {
             type="text"
             className="Autocomplete"
             /> */}
-          <PlacesAutocomplete onChange={this.handleChange} value={this.state.placeQuery}/>
-
-
-
-
-
+          <LocationSearchInput
+            onChange={this.handleChange}
+            value={this.state.placeQuery}
+          />
           <label
             htmlFor="userLang">What languages are you interested in?</label>
           <input
@@ -88,24 +87,7 @@ class Search extends Component {
             id="userWeather"
             type="text" /> 
           <input type="submit" value="Submit"/>
-          
         </form>
-
-
-      <script>
-
-        {
-
-        
-  }
-
-
-      </script>
-
-
-
-        <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`}></script>
-
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {/* <EarthPhotos /> */}
         <EarthWeather />
