@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import EarthPhotos from "./EarthPhotos";
 import axios from "axios";
 import apiKeys from '../data/secrets';
-import LocationSearchInput from "./Autocomplete"
+import LocationSearchInput from "./Autocomplete";
+import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
 
 
@@ -46,36 +46,15 @@ class Search extends Component {
     //   placeQuery: ""
     // })
   }
-     
-  componentDidMount() {
-    console.log(`I'm alive!`)
-
-
-
-  }
 
   render() {
     return (
       <main>
-        <script
-        type="text/javascript"
-          src={`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`}
-        >
-        </script>
         <h2>Hello!!</h2>
         <p>Mapquest is so grown up wow</p>
         <form action="" onSubmit={this.handleSubmit}>
-          <label
-            htmlFor="placeQuery">What continent would you like to visit on Earth?</label>
-          {/* <input
-            id="placeQuery"
-            type="text"
-            className="Autocomplete"
-            /> */}
-          <LocationSearchInput
-            onChange={this.handleChange}
-            value={this.state.placeQuery}
-          />
+          <label htmlFor="placeQuery">What continent would you like to visit on Earth?</label>
+
           <label
             htmlFor="userLang">What languages are you interested in?</label>
           <input
@@ -90,7 +69,7 @@ class Search extends Component {
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {/* <EarthPhotos /> */}
-        <EarthWeather />
+        {/* <EarthWeather /> */}
       </main>
     )
   }
