@@ -4,6 +4,8 @@ import axios from "axios";
 import apiKeys from '../data/secrets';
 import LocationSearchInput from "./Autocomplete"
 import EarthWeather from "./EarthWeather";
+import ReactDependentScript from 'react-dependent-script';
+
 
 
 class Search extends Component {
@@ -25,15 +27,12 @@ class Search extends Component {
       }
     }).then((res) => {
       console.log(res)
-      // console.log('muffin')
+      console.log('muffin')
     })
   }
 
   componentDidMount() {
     console.log(`I'm alive!`)
-
-
-
   }
 
 
@@ -57,10 +56,23 @@ class Search extends Component {
   }
 
 
+// <ReactDependentScript
+//   scripts={[
+//     "https://maps.googleapis.com/maps/api/js?key={YOUR-KEY-GOES-HERE}"
+//   ]}>
+//   <Map center={{ lat: -34.397, lng: 150.644 }} zoom={3} />
+// </ReactDependentScript>
 
+  
   render() {
+    
+
     return (
       <main>
+
+        
+
+
         <h2>Hello!!</h2>
         <p>Mapquest is so grown up wow</p>
         <form action="" onSubmit={this.handleSubmit}>
@@ -69,13 +81,17 @@ class Search extends Component {
           {/* <input
             id="placeQuery"
             type="text"
-            className="Autocomplete"
+            onChange={this.handleChange} value={this.state.placeQuery}
             /> */}
-          <PlacesAutocomplete onChange={this.handleChange} value={this.state.placeQuery}/>
 
+          {/* <LocationSearchInput onChange={this.handleChange} value={this.state.placeQuery} /> */}
 
-
-
+          <ReactDependentScript
+            loadingComponent={<div>jQuery is loading...</div>}
+            scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
+          >
+            <LocationSearchInput onChange={this.handleChange} value={this.state.placeQuery} />
+          </ReactDependentScript>
 
           <label
             htmlFor="userLang">What languages are you interested in?</label>
@@ -92,19 +108,7 @@ class Search extends Component {
         </form>
 
 
-      <script>
 
-        {
-
-        
-  }
-
-
-      </script>
-
-
-
-        <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`}></script>
 
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {/* <EarthPhotos /> */}
