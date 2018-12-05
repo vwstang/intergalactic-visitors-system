@@ -3,11 +3,7 @@ import PlacesAutocomplete, {
 	geocodeByAddress,
 	getLatLng,
 } from 'react-places-autocomplete';
-// import {
-// 	geocodeByAddress,
-// 	geocodeByPlaceId,
-// 	getLatLng,
-// } from 'react-places-autocomplete';
+
 
 
 class LocationSearchInput extends Component {
