@@ -82,18 +82,16 @@ class Search extends Component {
       )
     }
   }
-  
+
   render() {
     return (
       <main>
-        <h1>Intergalactic Visitors System</h1>
-        <h2>An Earthly destination search</h2>
-        <p>Use any one of the search fields below to receive a suggestion for a travel destination with love from your favourite Earthlings.</p>
+        <h1>IVS</h1>
         <form action="" onSubmit={this.handleSubmit}>
           <label
-            htmlFor="placeQuery"
+            htmlFor="placeQuery" className="visuallyhidden"
           >
-            Do you have a specific place in mind already?
+            Search by place
           </label>
           <ReactDependentScript
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
@@ -104,7 +102,7 @@ class Search extends Component {
               isDisabled={this.isDisabled}
             />
           </ReactDependentScript>
-          <label htmlFor="langValue">What languages are you interested in?</label>
+          <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
           <input
             id="langValue"
             type="text"
@@ -113,7 +111,7 @@ class Search extends Component {
             onChange={this.handleChange}
             disabled={this.isDisabled("langValue")}
           />
-          <label htmlFor="wthrValue">What weather are you comfortable with?</label>
+          <label htmlFor="wthrValue" className="visuallyhidden">Search by climate</label>
           <input
             id="wthrValue"
             type="text"
@@ -122,7 +120,7 @@ class Search extends Component {
             onChange={this.handleChange}
             disabled={this.isDisabled("wthrValue")}
           />
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Submit" className="visuallyhidden"/>
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {this.showResults(this.state.showResults)}

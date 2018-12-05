@@ -1,0 +1,26 @@
+// Search styles
+main {
+    background: url(searchBackground.jpg);
+    background-size: cover;
+    background-position-x: center;
+    height: 100vh;
+}
+
+main h1 {
+    font-size: 25rem;
+}
+
+input[type=text] {
+    display: block;
+    color: $primary-color;
+    background: $secondary-color;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 0;
+    margin: 0 auto;
+}
+
+::placeholder {
+    color: $primary-color;
+    opacity: 1;
+}
