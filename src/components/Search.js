@@ -13,7 +13,8 @@ class Search extends Component {
     this.state = {
       qryLat: 0,
       qryLng: 0,
-      placeQuery: ""
+      placeQuery: "",
+      showResults: false
     };
   }
 
@@ -41,13 +42,14 @@ class Search extends Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('hi')
-    
-    this.getLocation();
-    
-    // this.setState({
-    //   placeQuery: ""
-    // })
+    console.log('hi');
+
+    console.log(this.state.qryLat);
+    console.log(this.state.qryLng);
+
+    this.setState({
+      showResults: true
+    })
   }
 
   updateCoords = coords => {
@@ -55,6 +57,15 @@ class Search extends Component {
       qryLat: coords.lat,
       qryLng: coords.lng
     });
+  }
+
+  showResults = () => {
+    return (
+      <div className="results">
+        <EarthPhotos lng={this.state.qryLng} lat={this.state.qryLat} />
+        <EarthWeather lng={this.state.qryLng} lat={this.state.qryLat} />
+      </div>
+    )
   }
   
   render() {
@@ -83,8 +94,11 @@ class Search extends Component {
           <input type="submit" value="Submit"/>
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
-        {/* <EarthPhotos /> */}
-        {/* <EarthWeather /> */}
+        {
+          this.state.showResults ?
+            this.showResults() :
+            console.log("Hello! You are not ready to view this fam")
+        }
       </main>
     )
   }

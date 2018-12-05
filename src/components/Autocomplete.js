@@ -19,7 +19,10 @@ class LocationSearchInput extends Component {
 
 	handleSelect = address => {
 		geocodeByAddress(address)
-			.then(results => getLatLng(results[0]))
+      .then(results => {
+        console.log(results);
+        return getLatLng(results[0])
+      })
       .then(latLng => {
         this.props.updateCoords(latLng);
       })
