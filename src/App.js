@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.scss';
-import Search from "./components/Search.js";
+
+import Search from "./components/Search";
+import Results from "./components/Results";
 
 class App extends Component {
 	render() {
 		return (
-			<div className="App">
-				<Search />
-			</div>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={Search} />
+          <Route path="/results/:lat/:lng" component={Results} />
+        </div>
+      </Router>
 		);
 	}
 }
