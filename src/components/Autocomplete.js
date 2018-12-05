@@ -4,8 +4,6 @@ import PlacesAutocomplete, {
 	getLatLng
 } from "react-places-autocomplete";
 
-
-
 class LocationSearchInput extends Component {
   constructor() {
     super();
@@ -14,25 +12,27 @@ class LocationSearchInput extends Component {
     }
   }
 
-	handleChange = address => {
-		this.setState({ address });
+  handleChange = address => {
+    this.setState({ address });
+    this.props.updateSpecValue(address);
 	}
 
 	handleSelect = address => {
 		geocodeByAddress(address)
       .then(results => {
-        console.log(results);
+        this.setState({ address: results[0].formatted_address });
         return getLatLng(results[0])
       })
       .then(latLng => {
         this.props.updateCoords(latLng);
+        this.props.updateSpecValue(this.state.address);
       })
-			.catch(error => console.error('Error', error));
+      .catch(error => console.error('Error', error));
 	}
 
 	render() {
 		return (
-			<PlacesAutocomplete
+      <PlacesAutocomplete
 				value={this.state.address}
 				onChange={this.handleChange}
 				onSelect={this.handleSelect}
@@ -41,8 +41,9 @@ class LocationSearchInput extends Component {
 					<div>
 						<input
 							{...getInputProps({
-								placeholder: 'Search Places ...',
-								className: 'location-search-input',
+								placeholder: 'Search Earth Places',
+                className: 'location-search-input',
+                disabled: this.props.isDisabled("specValue")
 							})}
 						/>
 						<div className="autocomplete-dropdown-container">
