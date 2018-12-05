@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import axios from "axios";
+import apiKeys from "../data/secrets";
 
 class NASAPhotos extends Component {
     constructor(){
         super();
         this.state = {
             // empty string to store photo URL
-            NASAPhoto: ''
+            NASAPhoto: ""
         }
     }
+  
     componentDidMount(){
-        // ajax request
+        // axios request
         axios({
             url: `https://api.nasa.gov/planetary/earth/imagery`,
             method: 'GET',
             dataType: 'json',
             params: {
-                lat: '44',
-                lon: '79',
+                lat: this.props.lat,
+                lon: this.props.lng,
                 cloud_score: true,
-                api_key: 'k5T0oUUDsr2SkUiNU3yy5EMWhK86Ks8MQLcwOz0n'
+                api_key: apiKeys.nasa
             }
         }).then((response) => {
             this.setState({
@@ -28,6 +30,7 @@ class NASAPhotos extends Component {
             })
         })
     }
+  
     render(){
         return(
             <img src={this.state.NASAPhoto} alt=""/>
