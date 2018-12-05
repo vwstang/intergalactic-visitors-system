@@ -16,8 +16,8 @@ class EarthWeather extends Component {
   getWeather = () => {
     const apiKey = apiKeys.openWeatherMap;
     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-    const coordsLon = -79.355685;
-    const coordsLat = 43.641114;
+    const coordsLon = this.props.lng;
+    const coordsLat = this.props.lat;
 
     Axios.get(apiURL, {
       params: {

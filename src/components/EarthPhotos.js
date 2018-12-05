@@ -23,8 +23,11 @@ class EarthPhotos extends Component {
   getPhotos = () => {
     const apiKey = apiKeys.flickr;
     const apiURL = "https://api.flickr.com/services/rest/";
-    const coordsLon = -79.355685;
-    const coordsLat = 43.641114;
+    const coordsLon = this.props.lng;
+    const coordsLat = this.props.lat;
+
+    console.log(coordsLon);
+    console.log(coordsLat);
 
     axios.get(apiURL, {
       params: {
