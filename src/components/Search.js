@@ -77,9 +77,7 @@ class Search extends Component {
 
   showResults = ready => {
     if (ready) {
-      return (
-        <Results lat={this.state.qryLat} lng={this.state.qryLng} />
-      )
+      window.location.href = `/results/${this.state.qryLat}/${this.state.qryLng}`;
     }
   }
   
