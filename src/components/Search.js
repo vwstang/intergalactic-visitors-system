@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import apiKeys from '../data/secrets';
 import LocationSearchInput from "./Autocomplete";
 import EarthPhotos from "./EarthPhotos";
@@ -18,25 +17,6 @@ class Search extends Component {
     };
   }
 
-  getLocation = () => {
-    const apiURL = "https://maps.googleapis.com/maps/api/geocode/json";
-
-    axios.get(apiURL, {
-      params: {
-        key: apiKeys.googlemaps,
-        outputFormat: 'json',
-        address: this.state.placeQuery,
-        // location: "Toronto,ON",
-      }
-    }).then((res) => {
-      console.log(res);
-      console.log('muffin');
-    })
-  }
-
-  componentDidMount() {
-    console.log(`I'm alive!`);
-  }
 
   handleChange = (e) => this.setState({ [e.target.id]: e.target.value })
   
