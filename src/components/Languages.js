@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-// import axios from "axios";
 import "country-language";
-import { get } from "https";
 
 const CountryLanguage = require('country-language');
-const allLanguages = CountryLanguage.getLanguages();
 
 
 class Language extends Component {
@@ -13,115 +10,54 @@ class Language extends Component {
 		this.state = {
 			language: "",
 			languageISO: "",
-			countriesData: [],
-			countries: [],
-			value: ""
+			value: "",
+			country: "",
 		}
-		this.handleChange = this.handleChange.bind(this);
 	};
 
-	handleChange(event) {
-		// console.log(event.target.value)
-		let HELLO = event.target.value;
+	handleChange = (event) => {
+
+		let selectionValue = event.target.value;
 		this.setState({ 
-			languageISO: HELLO 
+			languageISO: selectionValue 
 		},
 		() => {  
-		// console.log(event.target.value);
-		console.log(this.state.languageISO, 'hi');
-			this.getCountries(HELLO)
-		}
-			
+			this.getCountries(selectionValue)
+			}			
 		);
 
-		console.log('ME', this.state.languageISO, 'want this one')
 
 	}
-
-
-	getLanguageValue = (e) => {
-		console.log('muffin')
-		// console.log(e.target.id)
-		// console.log(e.nativeEvent.target.value)
-		console.log(e.target.value)
-
-		this.setState({
-			languageISO: e.target.value,
-		});
-
-		// this.getCountries()
-		console.log(this.state.languageISO)
-
-
-	}
-
 
 	getCountries = (lang) => {
-		// CountryLanguage.getLanguage(this.state.language);
-		// const countriesSpeakingX = this.state.language.countries;
-		console.log(this.state.languageISO, "MUFFIN")
-
-		console.log('getCountries')
-
+		// console.log(lang)
 		
-		const test = CountryLanguage.getLanguage(lang, function (err, language) {
+		const countries = CountryLanguage.getLanguage(lang, function (err, language) {
+
 			if (err) {
 				console.log(err);
 			} else {
-				return language.countries;
+				return language.countries.map(country => {
+					return country.name
+				});
+
 			}
 		});
 
-		console.log(test)
-		// const countries = []
+		console.log(countries);
+		const randomChoice = this.randomCountry(countries);
 
 		this.setState({
-			countriesData: test
+			country: randomChoice
 		})
-
-		console.log(this.state.countriesData, 'hi')
-
-		// test.map(country => {
-		// })
-
-		// CountryLanguage.getLanguage(this.state.languageISO, function (err, language) {
-		// 	// const lang = this.state.languageISO
-		// 	var countriesSpeakingX
-		// 	const countries = []
-
-		// 	if (err) {
-		// 		console.log(err);
-		// 	} else {
-		// 		// countriesSpeakingX = language.countries;
-		// 		// console.log(language.countries)
-		// 		countriesSpeakingX = language.countries
-		// 		return countriesSpeakingX
-
-		// 	// 	this.setState({
-		// 	// 		countries: countriesSpeakingX
-		// 	// 	})
-		// 	}
-		// 	console.log(countriesSpeakingX);
-
-
-
-			// for (let i = 0; i < countriesSpeakingX.length; i++) {
-			// 	console.log(countriesSpeakingX[i].name)
-			// }
-			
-			// countriesSpeakingX.map(country => {
-			// 	countries.push(country.name)
-			// 	return countries
-			// })
-
-			// console.log(countries)
-		// });
 
 	}
 
+	randomCountry = (list) => list[Math.floor(Math.random() * list.length)];
+
+
 	render() {
-		// console.log(this.state.languageISO)
-		// this.getCountries()
+		console.log(this.state.country);
 
 		return (
 			<select name="chosenLanguage" id="chosenLanguage" 
@@ -129,7 +65,7 @@ class Language extends Component {
 			onChange={this.handleChange}>
 					<option value="">Select a language</option>
 				{
-					allLanguages.map((language, i) => {
+					CountryLanguage.getLanguages().map((language, i) => {
 						// console.log(language.name);
 						return(
 							<option value={language.iso639_3} key={language.iso639_3}>{language.name}</option>
