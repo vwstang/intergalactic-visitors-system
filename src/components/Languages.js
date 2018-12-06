@@ -15,6 +15,31 @@ class Language extends Component {
 		}
 	};
 
+	allLanguageCodesWithCountries = () => {
+
+
+		const test = CountryLanguage.getLanguages().filter((lang) => {
+
+			const test2 = CountryLanguage.getLanguage(lang, function (err, language) {
+				
+				if (err) {
+					console.log(err);
+				} else {
+					// return language.countries; 
+					return language.countries.map(country => {
+						return country.name
+					});
+					
+				}
+			}).length > 0; // method call
+
+		}) 
+
+		console.log(test)
+	}
+
+
+
 	handleChange = (event) => {
 
 		let selectionValue = event.target.value;
@@ -37,6 +62,9 @@ class Language extends Component {
 			if (err) {
 				console.log(err);
 			} else {
+
+
+				// return language.countries; 
 				return language.countries.map(country => {
 					return country.name
 				});
@@ -58,6 +86,7 @@ class Language extends Component {
 
 	render() {
 		console.log(this.state.country);
+		this.allLanguageCodesWithCountries();
 
 		return (
 			<select name="chosenLanguage" id="chosenLanguage" 
@@ -65,6 +94,7 @@ class Language extends Component {
 			onChange={this.handleChange}>
 					<option value="">Select a language</option>
 				{
+					/// CHANGE ME
 					CountryLanguage.getLanguages().map((language, i) => {
 						// console.log(language.name);
 						return(
