@@ -3,6 +3,7 @@ import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
+import Language from "./Languages"
 
 
 class Search extends Component {
@@ -15,7 +16,9 @@ class Search extends Component {
       placeQuery: "",
       specValue: "",
       langValue: "",
-      wthrValue: ""
+      wthrValue: "",
+      Language: "",
+      LanguageISO: "",
     };
   }
 
@@ -44,13 +47,14 @@ class Search extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(this.state.qryLat);
-    console.log(this.state.qryLng);
+		console.log(this.state.qryLat);
+		console.log(this.state.qryLng);
+		console.log(this.state.language, this.state.languageISO)
 
-    this.setState({
-      showResults: true
-    })
-  }
+		this.setState({
+			showResults: true
+		})
+	}
 
   isDisabled = whichInput => {
     switch (whichInput) {
@@ -103,14 +107,16 @@ class Search extends Component {
             />
           </ReactDependentScript>
           <label htmlFor="langValue">What languages are you interested in?</label>
-          <input
+          
+          <Language 
             id="langValue"
             type="text"
             value={this.state.langValue}
             placeholder="Select an Earth Language"
             onChange={this.handleChange}
-            disabled={this.isDisabled("langValue")}
-          />
+            disabled={this.isDisabled("langValue")}/>
+
+
           <label htmlFor="wthrValue">What weather are you comfortable with?</label>
           <input
             id="wthrValue"

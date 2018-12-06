@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "country-language": "^0.1.7",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-dependent-script": "^1.1.0",
