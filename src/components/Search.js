@@ -3,7 +3,7 @@ import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
-import Language from "./Languages"
+import Language from "./Languages";
 
 
 class Search extends Component {
@@ -37,6 +37,13 @@ class Search extends Component {
     })
   }
 
+  updateLangValue = value => {
+    this.setState({
+      langValue: value,
+      showResults: false
+    })
+  }
+
   updateCoords = coords => {
     this.setState({
       qryLat: coords.lat,
@@ -49,7 +56,7 @@ class Search extends Component {
 
 		console.log(this.state.qryLat);
 		console.log(this.state.qryLng);
-		console.log(this.state.language, this.state.languageISO)
+    console.log(this.state.language, this.state.languageISO);
 
 		this.setState({
 			showResults: true
@@ -109,6 +116,7 @@ class Search extends Component {
           <Language
             id="langValue"
             type="text"
+            updateLangValue={this.updateLangValue}
             value={this.state.langValue}
             placeholder="Search by Language"
             onChange={this.handleChange}
