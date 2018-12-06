@@ -105,7 +105,7 @@ class Search extends Component {
             id="langValue"
             type="text"
             value={this.state.langValue}
-            placeholder="Select an Earth Language"
+            placeholder="Search by Language"
             onChange={this.handleChange}
             disabled={this.isDisabled("langValue")}
           />
@@ -114,7 +114,7 @@ class Search extends Component {
             id="wthrValue"
             type="text"
             value={this.state.wthrValue}
-            placeholder="Select an Earth Climate"
+            placeholder="Search by Climate"
             onChange={this.handleChange}
             disabled={this.isDisabled("wthrValue")}
           />
