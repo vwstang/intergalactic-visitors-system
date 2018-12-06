@@ -18,14 +18,14 @@ class Language extends Component {
 	handleChange = (event) => {
     const selectionValue = event.target.value;
     let resultValue;
-    
+
     if (selectionValue === "") {
       resultValue = "";
     } else {
       const countries = this.getCountries(selectionValue);
       resultValue = this.randomCountry(countries);
     }
-    
+
     this.props.updateLangValue(resultValue);
 	}
 
@@ -38,7 +38,7 @@ class Language extends Component {
 					return country.name
 				});
 			}
-		});    
+		});
 	}
 
 	randomCountry = (list) => list[Math.floor(Math.random() * list.length)];
@@ -55,21 +55,25 @@ class Language extends Component {
 
   render() {
 		return (
-      <select
-        name="chosenLanguage"
-        id="chosenLanguage" 
-        onChange={this.handleChange}>
+			<select
+				name="chosenLanguage"
+				id="chosenLanguage"
+				onChange={this.handleChange}
+				// NEW CODE
+				disabled={this.props.isDisabled("langValue")}
+			// NEW CODE
+			>
 					<option value="">Select a language</option>
 				{
 					this.allLangsWithCountries().map(language => {
 						return (
-							<option value={language.iso639_3} key={language.iso639_3}>{language.name}</option>
+							<option value={language.iso639_3} key={language.iso639_3} className="languageOption">{language.name}</option>
 						)
 					})
 				}
-				
+
 			</select>
-				
+
 			)
 	}
 }
