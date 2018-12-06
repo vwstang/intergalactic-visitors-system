@@ -152,7 +152,17 @@ class Search extends Component {
 
   render() {
     return (
-      <main>
+      <main class="search">
+        <nav>
+          <ul>
+            <li>
+              <a href="#"><img src="/assets/alien-icon.png" alt="Login"/></a>
+            </li>
+            <li>
+              <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
+            </li>
+          </ul>
+        </nav>
         <h1>IVS</h1>
         <form action="" onSubmit={this.handleSubmit}>
           <label
@@ -179,19 +189,22 @@ class Search extends Component {
             onChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
-          <label htmlFor="wthrValue" className="visuallyhidden">Search by climate</label>
+          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonders</label>
           <input
             id="wthrValue"
             type="text"
             value={this.state.wthrValue}
-            placeholder="Search by Climate"
+            placeholder="Search by Wonder"
             onChange={this.handleChange}
             disabled={this.isDisabled("wthrValue")}
           />
-          <input type="submit" value="Submit" />
+          <button type="submit">
+            <i class="fas fa-space-shuttle"></i>
+          </button>
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {this.showResults(this.state.showResults)}
+        <div className="title">Intergalactic Visitors System: Earth</div>
       </main>
     )
   }
