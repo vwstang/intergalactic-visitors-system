@@ -3,7 +3,7 @@ import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
-import Language from "./Languages"
+import Language from "./Languages";
 
 
 class Search extends Component {
@@ -37,6 +37,13 @@ class Search extends Component {
     })
   }
 
+  updateLangValue = value => {
+    this.setState({
+      langValue: value,
+      showResults: false
+    })
+  }
+
   updateCoords = coords => {
     this.setState({
       qryLat: coords.lat,
@@ -49,7 +56,7 @@ class Search extends Component {
 
 		console.log(this.state.qryLat);
 		console.log(this.state.qryLng);
-		console.log(this.state.language, this.state.languageISO)
+    console.log(this.state.language, this.state.languageISO);
 
 		this.setState({
 			showResults: true
@@ -92,9 +99,7 @@ class Search extends Component {
         <h2>An Earthly destination search</h2>
         <p>Use any one of the search fields below to receive a suggestion for a travel destination with love from your favourite Earthlings.</p>
         <form action="" onSubmit={this.handleSubmit}>
-          <label
-            htmlFor="placeQuery"
-          >
+          <label htmlFor="placeQuery">
             Do you have a specific place in mind already?
           </label>
           <ReactDependentScript
@@ -111,7 +116,8 @@ class Search extends Component {
           <Language 
             id="langValue"
             type="text"
-            value={this.state.langValue}
+            // value={this.state.langValue}
+            updateLangValue={this.updateLangValue}
             placeholder="Select an Earth Language"
             onChange={this.handleChange}
             disabled={this.isDisabled("langValue")}/>
