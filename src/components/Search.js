@@ -42,6 +42,7 @@ class Search extends Component {
       langValue: value,
       showResults: false
     })
+    // This should send "value" to another function which will do something that gets coordinates for a random city
   }
 
   updateCoords = coords => {
@@ -112,7 +113,6 @@ class Search extends Component {
             />
           </ReactDependentScript>
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
-
           <Language
             id="langValue"
             type="text"
@@ -120,9 +120,8 @@ class Search extends Component {
             value={this.state.langValue}
             placeholder="Search by Language"
             onChange={this.handleChange}
-            disabled={this.isDisabled("langValue")}/>
-
-
+            isDisabled={this.isDisabled}
+          />
           <label htmlFor="wthrValue" className="visuallyhidden">Search by climate</label>
           <input
             id="wthrValue"
