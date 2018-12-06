@@ -1,0 +1,40 @@
+.earthlingPhotos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 0;
+  column-count: 3;
+  column-gap: 10px;
+
+  &-item {
+    position: relative;
+    margin-bottom: 10px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &-image {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .earthlingPhotos {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .earthlingPhotos {
+    column-count: 1;
+  }
+}

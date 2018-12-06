@@ -38,11 +38,10 @@ class EarthPhotos extends Component {
         safe_search: 1,
         lat: coordsLat,
         lon: coordsLon,
-        per_page: 20
+        per_page: 50
       }
     }).then(res => {
-      // console.log(res.data);
-      const urlList = res.data.photos.photo.map(photo => this.constructFlickrURL(photo))
+      const urlList = res.data.photos.photo.map(photo => [this.constructFlickrURL(photo), photo.title])
       this.setState({
         photoList: urlList
       })
@@ -56,12 +55,16 @@ class EarthPhotos extends Component {
   render() {
     return (
       <section>
-        <ul>
+        <ul className="earthlingPhotos">
           {
             this.state.photoList.map(photo => {
               return (
-                <li>
-                  <img src={photo} />
+                <li className="earthlingPhotos-item">
+                  <img
+                    src={photo[0]}
+                    alt={photo[1]}
+                    className="earthlingPhotos-image"
+                  />
                 </li>
               )
             })

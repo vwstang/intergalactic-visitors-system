@@ -5,6 +5,7 @@ import './App.scss';
 import Search from "./components/Search";
 import Results from "./components/Results";
 
+
 class App extends Component {
 	render() {
 		return (

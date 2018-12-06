@@ -7,6 +7,8 @@ class EarthWeather extends Component {
     super();
     this.state = {
       weather: "",
+      humidity: 0,
+      pressure: 0,
       currTemp: 0,
       minTemp: 0,
       maxTemp: 0
@@ -28,13 +30,29 @@ class EarthWeather extends Component {
       }
     }).then(res => {
       console.log(res.data);
+      const wthrRes = res.data.main;
+      this.setState({
+        humidity: wthrRes.humidity,
+        pressure: wthrRes.pressure,
+        currTemp: wthrRes.temp,
+        minTemp: wthrRes.temp_min,
+        maxTemp: wthrRes.temp_max
+      })
     });
   }
 
+  componentDidMount() {
+    this.getWeather();
+  }
+  
   render() {
+    console.log(this.state.humidity);
+    console.log(this.state.pressure);
+    console.log(this.state.currTemp);
+    console.log(this.state.minTemp);
+    console.log(this.state.maxTemp);
     return (
       <div>
-        {this.getWeather()}
       </div>
     )
   }

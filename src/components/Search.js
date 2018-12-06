@@ -4,7 +4,12 @@ import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
 import Language from "./Languages";
+import axios from "axios";
+import firebase from "../data/firebase"
 
+
+const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
 
 class Search extends Component {
   constructor() {
@@ -19,7 +24,45 @@ class Search extends Component {
       wthrValue: "",
       Language: "",
       LanguageISO: "",
+      user: null
     };
+  }
+
+  login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
+
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }, () => {
+          // create reference specific to user
+          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+
+          this.dbRef.on('value', (snapshot) => {
+
+          });
+        })
+      }
+    })
+
   }
 
 
@@ -38,10 +81,24 @@ class Search extends Component {
   }
 
   updateLangValue = value => {
-    this.setState({
-      langValue: value,
-      showResults: false
+
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+      params: {
+        key: apiKeys.googlemaps,
+        outputFormat: 'json',
+        address: value,
+      }
+    }).then((res) => {
+  
+      this.setState({
+        langValue: value,
+        showResults: false,
+        qryLat: res.data.results[0].geometry.location.lat,
+        qryLng: res.data.results[0].geometry.location.lng,
+      })
+  
     })
+    // This should send "value" to another function which will do something that gets coordinates for a random city
   }
 
   updateCoords = coords => {
@@ -92,6 +149,7 @@ class Search extends Component {
     }
   }
 
+
   render() {
     return (
       <main class="search">
@@ -122,7 +180,6 @@ class Search extends Component {
             />
           </ReactDependentScript>
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
-
           <Language
             id="langValue"
             type="text"
@@ -130,13 +187,9 @@ class Search extends Component {
             value={this.state.langValue}
             placeholder="Search by Language"
             onChange={this.handleChange}
-            // NEW CODE
             isDisabled={this.isDisabled}
-          // NEW CODE
           />
-
-
-          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonder</label>
+          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonders</label>
           <input
             id="wthrValue"
             type="text"
