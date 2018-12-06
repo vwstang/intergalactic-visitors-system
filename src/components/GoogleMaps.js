@@ -26,8 +26,6 @@ class GoogleMaps extends Component {
 		}
 
 	render() {
-
-
 		return (
 			<main>
 				<h1>hi there</h1>

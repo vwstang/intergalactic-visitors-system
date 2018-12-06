@@ -41,63 +41,53 @@ class Language extends Component {
 
 
 	handleChange = (event) => {
-
-		let selectionValue = event.target.value;
-		this.setState({ 
-			languageISO: selectionValue 
-		},
-		() => {  
-			this.getCountries(selectionValue)
-			}			
-		);
-
-
+    const selectionValue = event.target.value;
+    let resultValue;
+    
+    if (selectionValue === "") {
+      resultValue = "";
+    } else {
+      const countries = this.getCountries(selectionValue);
+      resultValue = this.randomCountry(countries);
+    }
+    
+    this.props.updateLangValue(resultValue);
 	}
 
-	getCountries = (lang) => {
-		// console.log(lang)
-		
-		const countries = CountryLanguage.getLanguage(lang, function (err, language) {
-
+  getCountries = (lang) => {
+		return CountryLanguage.getLanguage(lang, (err, language) => {
 			if (err) {
 				console.log(err);
-			} else {
-
-
-				// return language.countries; 
+      } else {
 				return language.countries.map(country => {
 					return country.name
 				});
-
 			}
-		});
-
-		console.log(countries);
-		const randomChoice = this.randomCountry(countries);
-
-		this.setState({
-			country: randomChoice
-		})
-
+		});    
 	}
 
 	randomCountry = (list) => list[Math.floor(Math.random() * list.length)];
 
+  // This uses the country-language module to get all languages in the world into an array and filter the array for any languages that have no countries that speak the language.
+  allLangsWithCountries = () => {
+    // console.log(CountryLanguage.getLanguages());
+    const result = CountryLanguage.getLanguages().filter(lang => {
+      return CountryLanguage.getLanguageCountries(lang.iso639_3).length > 0;
+    });
+    // console.log(result);
+    return result;
+  }
 
-	render() {
-		console.log(this.state.country);
-		this.allLanguageCodesWithCountries();
-
+  render() {
 		return (
-			<select name="chosenLanguage" id="chosenLanguage" 
-			// value={this.state.value} 
-			onChange={this.handleChange}>
+      <select
+        name="chosenLanguage"
+        id="chosenLanguage" 
+        onChange={this.handleChange}>
 					<option value="">Select a language</option>
 				{
-					/// CHANGE ME
-					CountryLanguage.getLanguages().map((language, i) => {
-						// console.log(language.name);
-						return(
+					this.allLangsWithCountries().map(language => {
+						return (
 							<option value={language.iso639_3} key={language.iso639_3}>{language.name}</option>
 						)
 					})

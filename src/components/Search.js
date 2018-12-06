@@ -3,7 +3,7 @@ import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
-import Language from "./Languages"
+import Language from "./Languages";
 
 
 class Search extends Component {
@@ -37,6 +37,13 @@ class Search extends Component {
     })
   }
 
+  updateLangValue = value => {
+    this.setState({
+      langValue: value,
+      showResults: false
+    })
+  }
+
   updateCoords = coords => {
     this.setState({
       qryLat: coords.lat,
@@ -49,7 +56,7 @@ class Search extends Component {
 
 		console.log(this.state.qryLat);
 		console.log(this.state.qryLng);
-		console.log(this.state.language, this.state.languageISO)
+    console.log(this.state.language, this.state.languageISO);
 
 		this.setState({
 			showResults: true
@@ -81,23 +88,19 @@ class Search extends Component {
 
   showResults = ready => {
     if (ready) {
-      return (
-        <Results lat={this.state.qryLat} lng={this.state.qryLng} />
-      )
+      window.location.href = `/results/${this.state.qryLat}/${this.state.qryLng}`;
     }
   }
-  
+
   render() {
     return (
       <main>
-        <h1>Intergalactic Visitors System</h1>
-        <h2>An Earthly destination search</h2>
-        <p>Use any one of the search fields below to receive a suggestion for a travel destination with love from your favourite Earthlings.</p>
+        <h1>IVS</h1>
         <form action="" onSubmit={this.handleSubmit}>
           <label
-            htmlFor="placeQuery"
+            htmlFor="placeQuery" className="visuallyhidden"
           >
-            Do you have a specific place in mind already?
+            Search by place
           </label>
           <ReactDependentScript
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
@@ -108,27 +111,28 @@ class Search extends Component {
               isDisabled={this.isDisabled}
             />
           </ReactDependentScript>
-          <label htmlFor="langValue">What languages are you interested in?</label>
-          
-          <Language 
+          <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
+
+          <Language
             id="langValue"
             type="text"
+            updateLangValue={this.updateLangValue}
             value={this.state.langValue}
-            placeholder="Select an Earth Language"
+            placeholder="Search by Language"
             onChange={this.handleChange}
             disabled={this.isDisabled("langValue")}/>
 
 
-          <label htmlFor="wthrValue">What weather are you comfortable with?</label>
+          <label htmlFor="wthrValue" className="visuallyhidden">Search by climate</label>
           <input
             id="wthrValue"
             type="text"
             value={this.state.wthrValue}
-            placeholder="Select an Earth Climate"
+            placeholder="Search by Climate"
             onChange={this.handleChange}
             disabled={this.isDisabled("wthrValue")}
           />
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Submit" className="visuallyhidden"/>
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {this.showResults(this.state.showResults)}
