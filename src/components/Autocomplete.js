@@ -41,7 +41,7 @@ class LocationSearchInput extends Component {
 					<div>
 						<input
 							{...getInputProps({
-								placeholder: 'Search Earth Places',
+								placeholder: 'Search by Place',
                 className: 'location-search-input',
                 disabled: this.props.isDisabled("specValue")
 							})}
