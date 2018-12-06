@@ -3,8 +3,40 @@ import { Link } from "react-router-dom";
 import NASAPhotos from "./NASAPhotos";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
+import firebase from "../data/firebase"
+
+const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
 
 class Results extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: null
+    };
+  }
+
+  login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
+
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
+  }
+
+
+
   render() {
     return (
       <main className="results">
