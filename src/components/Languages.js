@@ -83,7 +83,9 @@ class Language extends Component {
       <select
         name="chosenLanguage"
         id="chosenLanguage" 
-        onChange={this.handleChange}>
+        onChange={this.handleChange}
+        disabled={this.props.isDisabled("langValue")}
+      >
 					<option value="">Select a language</option>
 				{
 					this.allLangsWithCountries().map(language => {
