@@ -1,19 +1,33 @@
+// Global styles
+// Colors
+$primary-color: #f2a53b; //headings, borders
+$secondary-color: #0c050f; //background, overlays
+$accent-color: #122537; //secondary background color, some text
+$highlight-color: #3f8f9f; //text-shadow, link on hover
+
+// Fonts
+$primary-font: 'Oswald', sans-serif; //headings
+$secondary-font: 'Source Sans Pro', sans-serif; //body text
+
 html {
   font-size: 62.5%;
+  // 10px
 }
 
 body {
-  font-size: 1.6rem;
+  font-family: $secondary-font;
+  font-size: 2.5rem;
+  color: $primary-color;
+  text-transform: uppercase;
 }
 
-label {
-  display: block;
-  margin-top: 20px;
+img {
+  max-width: 100%;
 }
 
-input {
-  display: block;
-  margin-top: 20px;
+h1, h2, h3 {
+  margin: 0;
+  font-family: $primary-font;
 }
 
 .searchAgain {
