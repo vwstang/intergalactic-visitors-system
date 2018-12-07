@@ -21,7 +21,7 @@ class Search extends Component {
       placeQuery: "",
       specValue: "",
       langValue: "",
-      wthrValue: "",
+      wndrValue: "",
       Language: "",
       LanguageISO: "",
       user: null
@@ -31,6 +31,7 @@ class Search extends Component {
   login = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
+        console.log('success!')
         const user = result.user;
         this.setState({
           user
@@ -47,23 +48,23 @@ class Search extends Component {
       });
   }
 
-  componentDidMount() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          user: user
-        }, () => {
-          // create reference specific to user
-          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+  // componentDidMount() {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       this.setState({
+  //         user: user
+  //       }, () => {
+  //         // create reference specific to user
+  //         this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
-          this.dbRef.on('value', (snapshot) => {
+  //         this.dbRef.on('value', (snapshot) => {
 
-          });
-        })
-      }
-    })
+  //         });
+  //       })
+  //     }
+  //   })
 
-  }
+  // }
 
 
   handleChange = (e) => {
@@ -123,16 +124,16 @@ class Search extends Component {
   isDisabled = whichInput => {
     switch (whichInput) {
       case "specValue":
-        if (this.state.langValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.langValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
       case "langValue":
-        if (this.state.specValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.specValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
-      case "wthrValue":
+      case "wndrValue":
         if (this.state.specValue !== "" || this.state.langValue !== "") {
           return true;
         }
@@ -145,7 +146,7 @@ class Search extends Component {
 
   showResults = ready => {
     if (ready) {
-      window.location.href = `/results/${this.state.qryLat}/${this.state.qryLng}`;
+      window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
     }
   }
 
@@ -156,7 +157,9 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              <a href="#"><img src="/assets/alien-icon.png" alt="Login"/></a>
+              {/* <a href="#"></a> */}
+
+              {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
               <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
@@ -189,14 +192,14 @@ class Search extends Component {
             onChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
-          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonders</label>
+          <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
           <input
-            id="wthrValue"
+            id="wndrValue"
             type="text"
-            value={this.state.wthrValue}
+            value={this.state.wndrValue}
             placeholder="Search by Wonder"
             onChange={this.handleChange}
-            disabled={this.isDisabled("wthrValue")}
+            disabled={this.isDisabled("wndrValue")}
           />
           <button type="submit">
             <i class="fas fa-space-shuttle"></i>

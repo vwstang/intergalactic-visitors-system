@@ -12,7 +12,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={Search} />
-          <Route path="/results/:lat/:lng" component={Results} />
+          <Route path="/results/:name/:lat/:lng" component={Results} />
         </div>
       </Router>
 		);
