@@ -7,7 +7,6 @@ import Language from "./Languages";
 import Wonders from "./Wonders";
 import axios from "axios";
 import firebase from "../data/firebase";
-// import swal from 'sweetalert';
 import swal from '@sweetalert/with-react'
 
 
@@ -48,9 +47,11 @@ class Search extends Component {
   appInfo = () => {
     swal(
       <div>
-        <h1>Hello world!</h1>
+        <h1>The Intergalactic Visitors System welcomes you!</h1>
         <p>
-          This is now rendered with JSX!</p>
+          Welcome to Earth! Search for destination places on Earth by place, language, or by wonder (i.e. what Earthlings consider noteworthy). Login to save and view a list of your favourite destination places!
+        </p>
+        <p>(Remember to use your perception filter while visiting!)</p>
       </div>
     )
   }

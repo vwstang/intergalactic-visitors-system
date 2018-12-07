@@ -41,10 +41,12 @@ class Results extends Component {
   }
 
   handleNewPlace = e => {
-    const newPlace = {
-      name: this.props.match.params.name,
-      lat: this.props.match.params.lat,
-      lng: this.props.match.params.lng,
+
+    if (this.state.user) {
+      const newPlace = {
+        name: this.props.match.params.name,
+        lat: this.props.match.params.lat,
+        lng: this.props.match.params.lng,
       };
 
     const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
@@ -59,8 +61,27 @@ class Results extends Component {
           text: "Click the [] to view all destinations saved",
           icon: "success"
         })
-        )
+      )
     })
+    
+    } else {
+      swal({
+        title: "Request Denied",
+        text: "You must login to save this destination place",
+        icon: "error"
+      })
+    }      
+
+    
+    
+    
+
+
+
+
+
+
+  
   }
 
 
@@ -91,7 +112,7 @@ class Results extends Component {
         <h2>Your Results</h2>
         <button 
           className="heart" onClick={this.handleNewPlace}>
-          <i class="fas fa-heart"></i>
+          <i className="fas fa-heart"></i>
         </button>
         
 
