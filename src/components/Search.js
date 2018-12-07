@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
-import Results from "./Results";
 import Language from "./Languages";
+import Wonders from "./Wonders";
 import axios from "axios";
-import firebase from "../data/firebase"
-
+import firebase from "../data/firebase";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -17,7 +16,6 @@ class Search extends Component {
     this.state = {
       qryLat: 0,
       qryLng: 0,
-      showResults: false,
       placeQuery: "",
       specValue: "",
       langValue: "",
@@ -69,44 +67,48 @@ class Search extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value,
-      showResults: false
+      [e.target.id]: e.target.value
     })
   }
 
-  updateSpecValue = value => {
+  updateSpecValue = (address, coords) => {
     this.setState({
-      specValue: value,
-      showResults: false
+      specValue: address,
+      qryLat: coords.lat,
+      qryLng: coords.lng
     })
   }
 
   updateLangValue = value => {
-
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
-      params: {
-        key: apiKeys.googlemaps,
-        outputFormat: 'json',
-        address: value,
-      }
-    }).then((res) => {
-  
+    if (value === "") {
       this.setState({
-        langValue: value,
-        showResults: false,
-        qryLat: res.data.results[0].geometry.location.lat,
-        qryLng: res.data.results[0].geometry.location.lng,
+        langValue: "",
+        qryLat: 0,
+        qryLng: 0
       })
-  
-    })
-    // This should send "value" to another function which will do something that gets coordinates for a random city
+    } else {
+      axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          key: apiKeys.googlemaps,
+          outputFormat: 'json',
+          address: value,
+        }
+      }).then((res) => {
+        this.setState({
+          langValue: value,
+          qryLat: res.data.results[0].geometry.location.lat,
+          qryLng: res.data.results[0].geometry.location.lng,
+        })
+      })
+    }
   }
 
-  updateCoords = coords => {
+  updateWndrValue = (name, lat, lng) => {
     this.setState({
-      qryLat: coords.lat,
-      qryLng: coords.lng
-    });
+      wndrValue: name,
+      qryLat: lat,
+      qryLng: lng
+    })
   }
 
   handleSubmit = (e) => {
@@ -116,9 +118,7 @@ class Search extends Component {
 		console.log(this.state.qryLng);
     console.log(this.state.language, this.state.languageISO);
 
-		this.setState({
-			showResults: true
-		})
+    window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
 	}
 
   isDisabled = whichInput => {
@@ -144,21 +144,12 @@ class Search extends Component {
     }
   }
 
-  showResults = ready => {
-    if (ready) {
-      window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
-    }
-  }
-
-
   render() {
     return (
-      <main class="search">
+      <main className="search">
         <nav>
           <ul>
             <li>
-              {/* <a href="#"></a> */}
-
               {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
@@ -177,7 +168,6 @@ class Search extends Component {
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
           >
             <LocationSearchInput
-              updateCoords={this.updateCoords}
               updateSpecValue={this.updateSpecValue}
               isDisabled={this.isDisabled}
             />
@@ -185,7 +175,6 @@ class Search extends Component {
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
           <Language
             id="langValue"
-            type="text"
             updateLangValue={this.updateLangValue}
             value={this.state.langValue}
             placeholder="Search by Language"
@@ -193,6 +182,7 @@ class Search extends Component {
             isDisabled={this.isDisabled}
           />
           <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
+          {/* <input
           <input
             id="wndrValue"
             type="text"
@@ -200,13 +190,16 @@ class Search extends Component {
             placeholder="Search by Wonder"
             onChange={this.handleChange}
             disabled={this.isDisabled("wndrValue")}
+          /> */}
+          <Wonders
+            id="wndrValue"
+            updateWndrValue={this.updateWndrValue}
+            isDisabled={this.isDisabled}
           />
           <button type="submit">
-            <i class="fas fa-space-shuttle"></i>
+            <i className="fas fa-space-shuttle"></i>
           </button>
         </form>
-        {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
-        {this.showResults(this.state.showResults)}
         <div className="title">Intergalactic Visitors System: Earth</div>
       </main>
     )

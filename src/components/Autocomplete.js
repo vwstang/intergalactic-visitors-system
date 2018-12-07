@@ -24,8 +24,7 @@ class LocationSearchInput extends Component {
         return getLatLng(results[0])
       })
       .then(latLng => {
-        this.props.updateCoords(latLng);
-        this.props.updateSpecValue(this.state.address);
+        this.props.updateSpecValue(this.state.address, latLng);
       })
       .catch(error => console.error('Error', error));
 	}
