@@ -77,7 +77,7 @@ class Results extends Component {
         <h1>Intergalactic Visitors System</h1>
         <h2>Your Results</h2>
         <button onClick={this.handleNewPlace}>
-          <i class="fas fa-heart"></i>
+          <i className="fas fa-heart"></i>
         </button>
         <Link className="searchAgain" to="/">Search Again</Link>
         <NASAPhotos

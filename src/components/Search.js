@@ -5,7 +5,6 @@ import LocationSearchInput from "./Autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Language from "./Languages";
 import Wonders from "./Wonders";
-import axios from "axios";
 import firebase from "../data/firebase";
 
 const provider = new firebase.auth.GoogleAuthProvider();
