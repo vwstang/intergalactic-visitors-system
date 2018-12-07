@@ -12,7 +12,9 @@ class Results extends Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      newPlace: {},
+      placeEntries: {},
     };
   }
 
@@ -21,7 +23,7 @@ class Results extends Component {
       .then((result) => {
         const user = result.user;
         this.setState({
-          user
+          user: user
         });
       });
   }
@@ -35,6 +37,38 @@ class Results extends Component {
       });
   }
 
+  handleNewPlace = e => {
+    const newPlace = {
+      name: this.props.match.params.name,
+      lat: this.props.match.params.lat,
+      lng: this.props.match.params.lng,
+      };
+
+    const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
+
+    dbRef.push(newPlace);
+   
+  }
+
+
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }, () => {
+          // create reference specific to user
+          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+
+          this.dbRef.on('value', (snapshot) => {
+
+          });
+        })
+      }
+    })
+
+  }
 
 
   render() {
@@ -42,6 +76,9 @@ class Results extends Component {
       <main className="results">
         <h1>Intergalactic Visitors System</h1>
         <h2>Your Results</h2>
+        <button onClick={this.handleNewPlace}>
+          <i class="fas fa-heart"></i>
+        </button>
         <Link className="searchAgain" to="/">Search Again</Link>
         <NASAPhotos
           lng={this.props.match.params.lng}
