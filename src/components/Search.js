@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
-import Results from "./Results";
 import Language from "./Languages";
+import Wonders from "./Wonders";
 import axios from "axios";
-import firebase from "../data/firebase"
+import firebase from "../data/firebase";
 
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -21,7 +21,7 @@ class Search extends Component {
       placeQuery: "",
       specValue: "",
       langValue: "",
-      wthrValue: "",
+      wndrValue: "",
       Language: "",
       LanguageISO: "",
       user: null
@@ -81,7 +81,6 @@ class Search extends Component {
   }
 
   updateLangValue = value => {
-
     axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
         key: apiKeys.googlemaps,
@@ -89,16 +88,13 @@ class Search extends Component {
         address: value,
       }
     }).then((res) => {
-  
       this.setState({
         langValue: value,
         showResults: false,
         qryLat: res.data.results[0].geometry.location.lat,
         qryLng: res.data.results[0].geometry.location.lng,
       })
-  
     })
-    // This should send "value" to another function which will do something that gets coordinates for a random city
   }
 
   updateCoords = coords => {
@@ -123,16 +119,16 @@ class Search extends Component {
   isDisabled = whichInput => {
     switch (whichInput) {
       case "specValue":
-        if (this.state.langValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.langValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
       case "langValue":
-        if (this.state.specValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.specValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
-      case "wthrValue":
+      case "wndrValue":
         if (this.state.specValue !== "" || this.state.langValue !== "") {
           return true;
         }
@@ -182,27 +178,30 @@ class Search extends Component {
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
           <Language
             id="langValue"
-            type="text"
             updateLangValue={this.updateLangValue}
             value={this.state.langValue}
             placeholder="Search by Language"
             onChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
-          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonders</label>
-          <input
-            id="wthrValue"
+          <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
+          {/* <input
+            id="wndrValue"
             type="text"
-            value={this.state.wthrValue}
+            value={this.state.wndrValue}
             placeholder="Search by Wonder"
             onChange={this.handleChange}
-            disabled={this.isDisabled("wthrValue")}
+            disabled={this.isDisabled("wndrValue")}
+          /> */}
+          <Wonders
+            id="wndrValue"
+            onChange={this.handleChange}
+            isDisabled={this.isDisabled}
           />
           <button type="submit">
             <i class="fas fa-space-shuttle"></i>
           </button>
         </form>
-        {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
         {this.showResults(this.state.showResults)}
         <div className="title">Intergalactic Visitors System: Earth</div>
       </main>
