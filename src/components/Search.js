@@ -4,7 +4,12 @@ import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
 import Language from "./Languages";
+import axios from "axios";
+import firebase from "../data/firebase"
 
+
+const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
 
 class Search extends Component {
   constructor() {
@@ -16,11 +21,50 @@ class Search extends Component {
       placeQuery: "",
       specValue: "",
       langValue: "",
-      wthrValue: "",
+      wndrValue: "",
       Language: "",
       LanguageISO: "",
+      user: null
     };
   }
+
+  login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        console.log('success!')
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
+
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
+  }
+
+  // componentDidMount() {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       this.setState({
+  //         user: user
+  //       }, () => {
+  //         // create reference specific to user
+  //         this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+
+  //         this.dbRef.on('value', (snapshot) => {
+
+  //         });
+  //       })
+  //     }
+  //   })
+
+  // }
 
 
   handleChange = (e) => {
@@ -38,10 +82,24 @@ class Search extends Component {
   }
 
   updateLangValue = value => {
-    this.setState({
-      langValue: value,
-      showResults: false
+
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+      params: {
+        key: apiKeys.googlemaps,
+        outputFormat: 'json',
+        address: value,
+      }
+    }).then((res) => {
+
+      this.setState({
+        langValue: value,
+        showResults: false,
+        qryLat: res.data.results[0].geometry.location.lat,
+        qryLng: res.data.results[0].geometry.location.lng,
+      })
+
     })
+    // This should send "value" to another function which will do something that gets coordinates for a random city
   }
 
   updateCoords = coords => {
@@ -66,16 +124,16 @@ class Search extends Component {
   isDisabled = whichInput => {
     switch (whichInput) {
       case "specValue":
-        if (this.state.langValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.langValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
       case "langValue":
-        if (this.state.specValue !== "" || this.state.wthrValue !== "") {
+        if (this.state.specValue !== "" || this.state.wndrValue !== "") {
           return true;
         }
         return false;
-      case "wthrValue":
+      case "wndrValue":
         if (this.state.specValue !== "" || this.state.langValue !== "") {
           return true;
         }
@@ -88,9 +146,10 @@ class Search extends Component {
 
   showResults = ready => {
     if (ready) {
-      window.location.href = `/results/${this.state.qryLat}/${this.state.qryLng}`;
+      window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
     }
   }
+
 
   render() {
     return (
@@ -98,7 +157,9 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              <a href="#" tabIndex="0"><img src="/assets/alien-icon.png" alt="Login"/></a>
+              <a href="#" tabIndex="0">
+              {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
+              </a>
             </li>
             <li>
               <a href="#" tabIndex="0"><img src="/assets/about-icon.png" alt="About IVS"/></a>
@@ -122,7 +183,6 @@ class Search extends Component {
             />
           </ReactDependentScript>
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
-
           <Language
             id="langValue"
             type="text"
@@ -130,20 +190,16 @@ class Search extends Component {
             value={this.state.langValue}
             placeholder="Search by Language"
             onChange={this.handleChange}
-            // NEW CODE
             isDisabled={this.isDisabled}
-          // NEW CODE
           />
-
-
-          <label htmlFor="wthrValue" className="visuallyhidden">Search by wonder</label>
+          <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
           <input
-            id="wthrValue"
+            id="wndrValue"
             type="text"
-            value={this.state.wthrValue}
+            value={this.state.wndrValue}
             placeholder="Search by Wonder"
             onChange={this.handleChange}
-            disabled={this.isDisabled("wthrValue")}
+            disabled={this.isDisabled("wndrValue")}
           />
           <button type="submit">
             <i class="fas fa-space-shuttle" tabIndex="0"></i>

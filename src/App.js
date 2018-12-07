@@ -5,13 +5,14 @@ import './App.scss';
 import Search from "./components/Search";
 import Results from "./components/Results";
 
+
 class App extends Component {
 	render() {
 		return (
       <Router>
         <div className="App">
           <Route exact path="/" component={Search} />
-          <Route path="/results/:lat/:lng" component={Results} />
+          <Route path="/results/:name/:lat/:lng" component={Results} />
         </div>
       </Router>
 		);

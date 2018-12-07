@@ -15,6 +15,31 @@ class Language extends Component {
 		}
 	};
 
+	allLanguageCodesWithCountries = () => {
+
+
+		const test = CountryLanguage.getLanguages().filter((lang) => {
+
+			const test2 = CountryLanguage.getLanguage(lang, function (err, language) {
+				
+				if (err) {
+					console.log(err);
+				} else {
+					// return language.countries; 
+					return language.countries.map(country => {
+						return country.name
+					});
+					
+				}
+			}).length > 0; // method call
+
+		}) 
+
+		console.log(test)
+	}
+
+
+
 	handleChange = (event) => {
     const selectionValue = event.target.value;
     let resultValue;
@@ -55,14 +80,12 @@ class Language extends Component {
 
   render() {
 		return (
-			<select
-				name="chosenLanguage"
-				id="chosenLanguage"
-				onChange={this.handleChange}
-				// NEW CODE
-				disabled={this.props.isDisabled("langValue")}
-			// NEW CODE
-			>
+      <select
+        name="chosenLanguage"
+        id="chosenLanguage" 
+        onChange={this.handleChange}
+        disabled={this.props.isDisabled("langValue")}
+      >
 					<option value="">Select a language</option>
 					<img className="select-image" src="/assets/dropdown-icon.png" alt="Drop Down" />
 				{
