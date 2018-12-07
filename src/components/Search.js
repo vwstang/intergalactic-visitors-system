@@ -5,7 +5,9 @@ import LocationSearchInput from "./Autocomplete";
 import Results from "./Results";
 import Language from "./Languages";
 import axios from "axios";
-import firebase from "../data/firebase"
+import firebase from "../data/firebase";
+// import swal from 'sweetalert';
+import swal from '@sweetalert/with-react'
 
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -46,6 +48,17 @@ class Search extends Component {
           user: null
         });
       });
+  }
+
+  appInfo = () => {
+    swal(
+      <div>
+        <h1>Hello world!</h1>
+        <p>
+          This is now rendered with JSX!
+    </p>
+      </div>
+    )
   }
 
   // componentDidMount() {
@@ -157,12 +170,10 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              {/* <a href="#"></a> */}
-
               {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
-              <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
+              <button onclick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>
           </ul>
         </nav>
