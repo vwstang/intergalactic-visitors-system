@@ -64,6 +64,7 @@ class Language extends Component {
 			// NEW CODE
 			>
 					<option value="">Select a language</option>
+					<img className="select-image" src="/assets/dropdown-icon.png" alt="Drop Down" />
 				{
 					this.allLangsWithCountries().map(language => {
 						return (

@@ -98,10 +98,10 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              <a href="#"><img src="/assets/alien-icon.png" alt="Login"/></a>
+              <a href="#" tabIndex="0"><img src="/assets/alien-icon.png" alt="Login"/></a>
             </li>
             <li>
-              <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
+              <a href="#" tabIndex="0"><img src="/assets/about-icon.png" alt="About IVS"/></a>
             </li>
           </ul>
         </nav>
@@ -146,7 +146,7 @@ class Search extends Component {
             disabled={this.isDisabled("wthrValue")}
           />
           <button type="submit">
-            <i class="fas fa-space-shuttle"></i>
+            <i class="fas fa-space-shuttle" tabIndex="0"></i>
           </button>
         </form>
         {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}

@@ -22,6 +22,10 @@ nav img {
     width: 40px;
 }
 
+nav img:hover, img:focus {
+    transform: rotate(15deg);
+}
+
 .search ul, .search li {
     list-style-type: none;
     padding-left: 0;
@@ -91,6 +95,11 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    position: relative;
+}
+
+.select-image {
+    position: absolute;
 }
 
 // COME BACK TO OPTION STYLING
@@ -103,10 +112,12 @@ button {
     transform: rotate(-15deg);
     transition: transform 0.8s;
     color: $primary-color;
+    text-shadow: 1px 1px $highlight-color;
 }
 
-button:hover {
+button:hover, button:focus {
     transform: rotate(0deg);
+    text-shadow: 1px 1px $highlight-color;
 }
 
 // Search page full title
