@@ -5,16 +5,6 @@ const CountryLanguage = require('country-language');
 
 
 class Language extends Component {
-	constructor() {
-		super();
-		this.state = {
-			language: "",
-			languageISO: "",
-			value: "",
-			country: "",
-		}
-	}
-
 	handleChange = (event) => {
     const selectionValue = event.target.value;
     let resultValue;
@@ -52,8 +42,9 @@ class Language extends Component {
   render() {
 		return (
       <select
+        id={this.props.id}
         name="chosenLanguage"
-        id="chosenLanguage" 
+        placeholder="Search by Language"
         onChange={this.handleChange}
         disabled={this.props.isDisabled("langValue")}
       >
