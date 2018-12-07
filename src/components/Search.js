@@ -7,7 +7,6 @@ import Wonders from "./Wonders";
 import axios from "axios";
 import firebase from "../data/firebase";
 
-
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
 
@@ -31,6 +30,7 @@ class Search extends Component {
   login = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
+        console.log('success!')
         const user = result.user;
         this.setState({
           user
@@ -47,23 +47,23 @@ class Search extends Component {
       });
   }
 
-  componentDidMount() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          user: user
-        }, () => {
-          // create reference specific to user
-          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+  // componentDidMount() {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       this.setState({
+  //         user: user
+  //       }, () => {
+  //         // create reference specific to user
+  //         this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
-          this.dbRef.on('value', (snapshot) => {
+  //         this.dbRef.on('value', (snapshot) => {
 
-          });
-        })
-      }
-    })
+  //         });
+  //       })
+  //     }
+  //   })
 
-  }
+  // }
 
 
   handleChange = (e) => {
@@ -141,7 +141,7 @@ class Search extends Component {
 
   showResults = ready => {
     if (ready) {
-      window.location.href = `/results/${this.state.qryLat}/${this.state.qryLng}`;
+      window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
     }
   }
 
@@ -152,7 +152,7 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              <a href="#"><img src="/assets/alien-icon.png" alt="Login"/></a>
+              {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
               <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
@@ -186,6 +186,7 @@ class Search extends Component {
           />
           <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
           {/* <input
+          <input
             id="wndrValue"
             type="text"
             value={this.state.wndrValue}
