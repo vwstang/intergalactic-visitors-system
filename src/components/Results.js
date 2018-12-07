@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import NASAPhotos from "./NASAPhotos";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
-import firebase from "../data/firebase"
+import firebase from "../data/firebase";
+import swal from 'sweetalert';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -26,9 +27,11 @@ class Results extends Component {
           user: user
         });
       });
+
+  
   }
 
-  logout = () => {
+  logOut = () => {
     auth.signOut()
       .then(() => {
         this.setState({
@@ -38,16 +41,36 @@ class Results extends Component {
   }
 
   handleNewPlace = e => {
-    const newPlace = {
-      name: this.props.match.params.name,
-      lat: this.props.match.params.lat,
-      lng: this.props.match.params.lng,
+
+    if (this.state.user) {
+      const newPlace = {
+        name: this.props.match.params.name,
+        lat: this.props.match.params.lat,
+        lng: this.props.match.params.lng,
       };
 
     const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
-    dbRef.push(newPlace);
-   
+    console.log(newPlace)
+
+    dbRef.push(newPlace)
+    .then( () => {
+      return (
+        swal({
+          title: "Destination added!",
+          text: "Click the [] to view all destinations saved",
+          icon: "success"
+        })
+      )
+    })
+    
+    } else {
+      swal({
+        title: "Request Denied",
+        text: "You must login to save this destination place",
+        icon: "error"
+      })
+    }
   }
 
 
@@ -76,7 +99,8 @@ class Results extends Component {
       <main className="results">
         <h1>Intergalactic Visitors System</h1>
         <h2>Your Results</h2>
-        <button onClick={this.handleNewPlace}>
+        <button 
+          className="heart" onClick={this.handleNewPlace}>
           <i className="fas fa-heart"></i>
         </button>
         <Link className="searchAgain" to="/">Search Again</Link>

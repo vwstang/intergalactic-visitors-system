@@ -6,6 +6,8 @@ import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Language from "./Languages";
 import Wonders from "./Wonders";
 import firebase from "../data/firebase";
+import swal from '@sweetalert/with-react'
+
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -39,6 +41,18 @@ class Search extends Component {
           user: null
         });
       });
+  }
+
+  appInfo = () => {
+    swal(
+      <div>
+        <h1>The Intergalactic Visitors System welcomes you!</h1>
+        <p>
+          Welcome to Earth! Search for destination places on Earth by place, language, or by wonder (i.e. what Earthlings consider noteworthy). Login to save and view a list of your favourite destination places!
+        </p>
+        <p>(Remember to use your perception filter while visiting!)</p>
+      </div>
+    )
   }
 
   // componentDidMount() {
@@ -123,7 +137,7 @@ class Search extends Component {
               {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
-              <a href="#"><img src="/assets/about-icon.png" alt="About IVS"/></a>
+              <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>
           </ul>
         </nav>
