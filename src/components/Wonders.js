@@ -12,9 +12,9 @@ class WondersSearch extends Component {
       >
         <option value="">Search by wonder</option>
         {
-          wonders.map(wonder => {
+          Object.entries(wonders).map(wonder => {
             return (
-              <option value={wonder}>{wonder}</option>
+              <option key={wonder[0]} value={wonder[1]}>{wonder[1]}</option>
             )
           })
         }

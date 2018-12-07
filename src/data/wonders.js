@@ -1,13 +1,13 @@
 
-const wonders = [
-  "Great Pyramid of Giza",
-  "Flavian Amphitheatre",
-  "Great Wall of China",
-  "Machu Picchu",
-  "Christ the Redeemer",
-  "Chichen Itza",
-  "Taj Mahal",
-  "Petra"
-]
+const wonders = {
+  pyramids: "Great Pyramid of Giza",
+  colosseum: "Flavian Amphitheatre",
+  greatwall: "Great Wall of China",
+  machupicchu: "Machu Picchu",
+  redeemer: "Christ the Redeemer",
+  chichenitza: "Chichen Itza",
+  tajmahal: "Taj Mahal",
+  petra: "Petra"
+}
 
 export default wonders;

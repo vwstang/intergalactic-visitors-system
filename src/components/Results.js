@@ -70,18 +70,7 @@ class Results extends Component {
         text: "You must login to save this destination place",
         icon: "error"
       })
-    }      
-
-    
-    
-    
-
-
-
-
-
-
-  
+    }
   }
 
 
@@ -114,8 +103,6 @@ class Results extends Component {
           className="heart" onClick={this.handleNewPlace}>
           <i className="fas fa-heart"></i>
         </button>
-        
-
         <Link className="searchAgain" to="/">Search Again</Link>
         <NASAPhotos
           lng={this.props.match.params.lng}
