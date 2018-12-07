@@ -55,8 +55,7 @@ class Search extends Component {
       <div>
         <h1>Hello world!</h1>
         <p>
-          This is now rendered with JSX!
-    </p>
+          This is now rendered with JSX!</p>
       </div>
     )
   }
@@ -173,7 +172,7 @@ class Search extends Component {
               {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
             </li>
             <li>
-              <button onclick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
+              <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>
           </ul>
         </nav>
