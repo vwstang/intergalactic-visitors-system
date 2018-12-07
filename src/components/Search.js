@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Language from "./Languages";
 import Wonders from "./Wonders";
 import axios from "axios";
@@ -14,14 +15,9 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      qryLat: 0,
-      qryLng: 0,
-      placeQuery: "",
       specValue: "",
       langValue: "",
       wndrValue: "",
-      Language: "",
-      LanguageISO: "",
       user: null
     };
   }
@@ -71,57 +67,32 @@ class Search extends Component {
     })
   }
 
-  updateSpecValue = (address, coords) => {
+  updateSpecValue = (address) => {
     this.setState({
-      specValue: address,
-      qryLat: coords.lat,
-      qryLng: coords.lng
+      specValue: address
     })
   }
 
-  updateLangValue = value => {
-    if (value === "") {
-      this.setState({
-        langValue: "",
-        qryLat: 0,
-        qryLng: 0
-      })
-    } else {
-      axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
-        params: {
-          key: apiKeys.googlemaps,
-          outputFormat: 'json',
-          address: value,
-        }
-      }).then((res) => {
-        this.setState({
-          langValue: value,
-          qryLat: res.data.results[0].geometry.location.lat,
-          qryLng: res.data.results[0].geometry.location.lng,
-        })
-      })
-    }
-  }
-
-  updateWndrValue = (name, lat, lng) => {
+  updateLangValue = (value) => {
     this.setState({
-      wndrValue: name,
-      qryLat: lat,
-      qryLng: lng
+      langValue: value
     })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-		console.log(this.state.qryLat);
-		console.log(this.state.qryLng);
-    console.log(this.state.language, this.state.languageISO);
-
-    window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
+    geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
+      .then(res => {
+        return getLatLng(res[0])
+      })
+      .then(latLng => {
+        window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${latLng.lat}/${latLng.lng}`;
+      })
+      .catch(err => console.error('Error', err));
 	}
 
-  isDisabled = whichInput => {
+  isDisabled = (whichInput) => {
     switch (whichInput) {
       case "specValue":
         if (this.state.langValue !== "" || this.state.wndrValue !== "") {
@@ -160,7 +131,7 @@ class Search extends Component {
         <h1>IVS</h1>
         <form action="" onSubmit={this.handleSubmit}>
           <label
-            htmlFor="placeQuery" className="visuallyhidden"
+            htmlFor="specValue" className="visuallyhidden"
           >
             Search by place
           </label>
@@ -168,6 +139,8 @@ class Search extends Component {
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
           >
             <LocationSearchInput
+              id="specValue"
+              specValue={this.state.specValue}
               updateSpecValue={this.updateSpecValue}
               isDisabled={this.isDisabled}
             />
@@ -176,24 +149,12 @@ class Search extends Component {
           <Language
             id="langValue"
             updateLangValue={this.updateLangValue}
-            value={this.state.langValue}
-            placeholder="Search by Language"
-            onChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
           <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
-          {/* <input
-          <input
-            id="wndrValue"
-            type="text"
-            value={this.state.wndrValue}
-            placeholder="Search by Wonder"
-            onChange={this.handleChange}
-            disabled={this.isDisabled("wndrValue")}
-          /> */}
           <Wonders
             id="wndrValue"
-            updateWndrValue={this.updateWndrValue}
+            handleChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
           <button type="submit">
