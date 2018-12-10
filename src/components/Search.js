@@ -94,13 +94,28 @@ class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let locality = "";
+    let country = "";
 
     geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
       .then(res => {
-        return getLatLng(res[0])
+        // Google Places API geocodeByAddress method results includes address components, which show names of country, principalities, localities, etc. The following code is used to iterate through the entire address components section of the results to find the country and locality and stores to variables to be sent to results page.
+        res[0].address_components.forEach((component, i) => {
+          component.types.forEach(addressComponentType => {
+            if (addressComponentType === "country") {
+              country = res[0].address_components[i].long_name;
+            }
+            if (addressComponentType === "locality" || addressComponentType === "sublocality") {
+              locality = res[0].address_components[i].long_name;
+            }
+          })
+        })
+        return getLatLng(res[0]);
       })
       .then(latLng => {
-        window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${latLng.lat}/${latLng.lng}`;
+        let destName;
+        locality === "" ? destName = country : destName = `${locality}@${country}`;
+        window.location.href = `/results/${destName}/${latLng.lat}/${latLng.lng}`;
       })
       .catch(err => console.error('Error', err));
 	}
@@ -131,15 +146,22 @@ class Search extends Component {
   render() {
     return (
       <main className="search">
-        <nav>
+        <nav className="search-nav">
           <ul>
             <li>
               {
                 this.state.user ?
-                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> :
+                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
                   <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
                 }
             </li>
+
+            {this.state.user ?
+              <li>
+                <img src="/assets/list-icon.png" alt="Saved Places" />
+              </li>
+              : null}
+
             <li>
               <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>

@@ -14,15 +14,10 @@ class Results extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
       user: null,
       newPlace: {},
       placeEntries: {},
     };
-  }
-
-  getName = name => {
-    this.setState({ name })
   }
 
   login = () => {
@@ -33,8 +28,6 @@ class Results extends Component {
           user: user
         });
       });
-
-
   }
 
   logOut = () => {
@@ -118,6 +111,14 @@ class Results extends Component {
     }
   }
 
+  formatName = name => {
+    if (name.indexOf("@") === -1) {
+      return name;
+    } else {
+      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
+    }
+  }
+
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -141,8 +142,33 @@ class Results extends Component {
       <div>
         <main className="results">
           <div className="results-header">
+            <nav  className="results-nav">
+              <ul>
+                <li>
+                  {
+                    this.state.user ?
+                      <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
+                      <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
+                  }
+                </li>
+
+                { this.state.user ?
+                  <li>
+                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                </li>
+                 : null}
+
+                <li>
+                  <button onClick={this.appInfo}>
+                    <img src="/assets/about-icon.png" alt="About IVS" />
+                  </button>
+                </li>
+              </ul>
+            </nav>
             <h2>Visit...</h2>
-            <h1 className="place-heading">{this.state.name}</h1>
+            <div className="place-heading">
+              <h1>{this.formatName(this.props.match.params.name)}</h1>
+            </div>
           </div>
 
           <Link className="searchAgain" to="/">Search Again</Link>
@@ -167,7 +193,6 @@ class Results extends Component {
             lat={this.props.match.params.lat}
           />
           <EarthWeather
-            getName={this.getName}
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
           />
