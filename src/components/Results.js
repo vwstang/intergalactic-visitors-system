@@ -72,6 +72,14 @@ class Results extends Component {
     }
   }
 
+  formatName = name => {
+    if (name.indexOf("@") === -1) {
+      return name;
+    } else {
+      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
+    }
+  }
+
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -120,7 +128,7 @@ class Results extends Component {
             </nav>
             <h2>Visit...</h2>
             <div className="place-heading">
-              <h1>{this.props.match.params.name}</h1>
+              <h1>{this.formatName(this.props.match.params.name)}</h1>
             </div>
           </div>
 

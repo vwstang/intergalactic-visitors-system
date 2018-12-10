@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import apiKeys from "../data/secrets";
-import Axios from "axios";
+import axios from "axios";
 
 class EarthWeather extends Component {
   constructor() {
@@ -11,9 +11,36 @@ class EarthWeather extends Component {
       pressure: 0,
       currTemp: 0,
       minTemp: 0,
-      maxTemp: 0
+      maxTemp: 0,
+      windSpeed: 0,
+      windDir: ""
     };
   }
+
+  // Converts degrees to direction (i.e. North, North East, East, South East, South, South West, West, North West)
+  // Each of the directions take up 45 degrees, so North would be +/- 22.5 degrees (or 337.5 to 360 degrees and 0 to 22.5 degrees), and so on and so forth.
+  getWindDir = degree => {
+    if (degree <= 22.5 || degree >= 337.5) {
+      return "N";
+    } else if (degree <= 67.5) {
+      return "NE";
+    } else if (degree <= 112.5) {
+      return "E";
+    } else if (degree <= 157.5) {
+      return "SE";
+    } else if (degree <= 202.5) {
+      return "S";
+    } else if (degree <= 247.5) {
+      return "SW";
+    } else if (degree <= 292.5) {
+      return "W";
+    } else {
+      return "NW";
+    }
+  }
+
+  // Converts meters/second to kilometers/hour
+  getWindSpd = speed => speed * 3600 / 1000;
 
   getWeather = () => {
     const apiKey = apiKeys.openWeatherMap;
@@ -21,7 +48,7 @@ class EarthWeather extends Component {
     const coordsLon = this.props.lng;
     const coordsLat = this.props.lat;
 
-    Axios.get(apiURL, {
+    axios.get(apiURL, {
       params: {
         appid: apiKey,
         lat: coordsLat,
@@ -29,13 +56,17 @@ class EarthWeather extends Component {
         units: "metric"
       }
     }).then(res => {
-      const wthrRes = res.data.main;
+      console.log(res);
+      const wthrRes = res.data;
       this.setState({
-        humidity: wthrRes.humidity,
-        pressure: wthrRes.pressure,
-        currTemp: wthrRes.temp,
-        minTemp: wthrRes.temp_min,
-        maxTemp: wthrRes.temp_max
+        weather: wthrRes.weather[0].main,
+        humidity: wthrRes.main.humidity,
+        pressure: wthrRes.main.pressure, // Results in hPa
+        currTemp: wthrRes.main.temp, // Results in Celsius (as Axios request returns results in metric system)
+        minTemp: wthrRes.main.temp_min,
+        maxTemp: wthrRes.main.temp_max,
+        windSpeed: this.getWindSpd(wthrRes.wind.speed), // Results in m/s, converted to km/h
+        windDir: this.getWindDir(wthrRes.wind.deg) // Results in degrees, converted to N/NE/E/SE/S/SW/W/NW
       })
     });
   }
@@ -45,11 +76,7 @@ class EarthWeather extends Component {
   }
 
   render() {
-    console.log(this.state.humidity);
-    console.log(this.state.pressure);
-    console.log(this.state.currTemp);
-    console.log(this.state.minTemp);
-    console.log(this.state.maxTemp);
+    console.log(this.state);
     return (
       <div>
       </div>
