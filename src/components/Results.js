@@ -76,7 +76,7 @@ class Results extends Component {
     if (name.indexOf("@") === -1) {
       return name;
     } else {
-      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
+      return `${name.slice(0, name.indexOf("@"))}, ${name.slice(name.indexOf("@") + 1)}`;
     }
   }
 
