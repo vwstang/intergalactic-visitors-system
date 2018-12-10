@@ -48,21 +48,60 @@ class Results extends Component {
         lng: this.props.match.params.lng,
       };
 
-    const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
+      const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
-    console.log(newPlace)
+      console.log(newPlace)
+      // console.log(dbRef.orderByChild("name").equalTo(this.props.match.params.name), 'hi')
+      
+    
+      dbRef.once("value").then(snapshot => {
 
-    dbRef.push(newPlace)
-    .then( () => {
-      return (
-        swal({
-          title: "Destination added!",
-          text: "Click the [] to view all destinations saved",
-          icon: "success"
+          const stupidDB = snapshot.val();
+          console.log(stupidDB, 'database')
+          console.log(newPlace, 'cake')
+      
+
+        this.setState({
+          placeEntries: stupidDB 
         })
-      )
-    })
 
+        console.log(this.state.placeEntries, 'muffin')
+
+        if (this.state.placeEntries) {
+          let alreadyExists = false;
+          Object.entries(this.state.placeEntries).forEach((entry) => {
+
+            if (entry[1].lat === newPlace.lat && entry[1].lng === newPlace.lng) {
+              alreadyExists = true;
+              // console.log("IT MATCHES")
+            }
+
+          })
+          if (alreadyExists) {
+            swal({
+              title: "Already in List!",
+              text: "This location is already in your destination list.",
+              icon: "warning"
+            })
+          } else {
+            dbRef.push(newPlace)
+            swal({
+              title: "Destination added!",
+              text: "Click the [] to view all destinations saved",
+              icon: "success"
+            })
+          }
+        } else {
+          dbRef.push(newPlace)
+          swal({
+            title: "Destination added!",
+            text: "Click the [] to view all destinations saved",
+            icon: "success"
+          })
+        }
+      })
+            
+         
     } else {
       swal({
         title: "Request Denied",
@@ -103,8 +142,33 @@ class Results extends Component {
       <div>
         <main className="results">
           <div className="results-header">
+            <nav  className="results-nav">
+              <ul>
+                <li>
+                  {
+                    this.state.user ?
+                      <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
+                      <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
+                  }
+                </li>
+
+                { this.state.user ?
+                  <li>
+                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                </li>
+                 : null}
+
+                <li>
+                  <button onClick={this.appInfo}>
+                    <img src="/assets/about-icon.png" alt="About IVS" />
+                  </button>
+                </li>
+              </ul>
+            </nav>
             <h2>Visit...</h2>
-            <h1 className="place-heading">{this.formatName(this.props.match.params.name)}</h1>
+            <div className="place-heading">
+              <h1>{this.formatName(this.props.match.params.name)}</h1>
+            </div>
           </div>
 
           <Link className="searchAgain" to="/">Search Again</Link>

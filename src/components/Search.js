@@ -55,22 +55,23 @@ class Search extends Component {
     )
   }
 
-  // componentDidMount() {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       this.setState({
-  //         user: user
-  //       }, () => {
-  //         // create reference specific to user
-  //         this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }, () => {
+          // create reference specific to user
+          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
-  //         this.dbRef.on('value', (snapshot) => {
+          this.dbRef.on('value', (snapshot) => {
 
-  //         });
-  //       })
-  //     }
-  //   })
-  // }
+          });
+        })
+      }
+    })
+
+  }
 
 
   handleChange = (e) => {
@@ -145,15 +146,22 @@ class Search extends Component {
   render() {
     return (
       <main className="search">
-        <nav>
+        <nav className="search-nav">
           <ul>
             <li>
               {
                 this.state.user ?
-                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> :
+                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
                   <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
                 }
             </li>
+
+            {this.state.user ?
+              <li>
+                <img src="/assets/list-icon.png" alt="Saved Places" />
+              </li>
+              : null}
+
             <li>
               <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>
