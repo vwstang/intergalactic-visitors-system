@@ -105,6 +105,10 @@ class Results extends Component {
                   }
                 </li>
 
+                <li>
+                  <img src="/assets/search-icon.png" alt="Search" />
+                </li>
+
                 { this.state.user ?
                   <li>
                   <img src="/assets/list-icon.png" alt="Saved Places" />
@@ -127,11 +131,15 @@ class Results extends Component {
           <Link className="searchAgain" to="/">Search Again</Link>
           <div className="details clearfix">
             <div className="stats">
+              <div className="info">
+                {/* show lat and long to 2 decimal points */}
+                {"{"}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{"}"}
+              </div>
               <div className="share">
-                  <button onClick={this.handleNewPlace}>
+                  <button className="save-icon" onClick={this.handleNewPlace}>
                     <img src="/assets/save-icon.png" alt=""/>
                   </button>
-                  <img src="/assets/twitter-icon.png" alt=""/>
+                  <img className="twitter-icon" src="/assets/twitter-icon.png" alt=""/>
               </div>
             </div>
             <div className="sat">

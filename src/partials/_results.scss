@@ -29,12 +29,13 @@
     line-height: 1;
 }
 
-// Results nav
+// Nav top right corner
 .results-nav ul {
     text-align: right;
     padding: 20px 20px 0 0;
 }
 
+// Nav items in one row
 .results-nav li {
     display: inline-block;
 }
@@ -44,24 +45,43 @@
     margin-top: -100px;
 }
 
+// Container for stats and share/save options
 .stats {
     width: 50%;
     float: left;
     text-align: center;
 }
 
+.info {
+    font-family: $primary-font;
+    font-size: 3.5rem;
+    padding-bottom: 10px;
+}
+
+// Buttons
 .share button {
     background: none;
     outline: none;
     border: none;
 }
 
+// Hover effect on share icons
+.save-icon, .twitter-icon {
+    transform: scale(1);
+    transition: transform 0.3s;
+}
+
+.save-icon:hover, .twitter-icon:hover {
+    transform: scale(1.1);
+}
+
+// Container for satellite photo
 .sat {
     width: 50%;
     float: right;
 }
 
-// NASA photo
+// NASA satellite photo
 .nasa {
     border: 1px solid $primary-color;
     width: 300px;
