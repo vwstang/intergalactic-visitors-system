@@ -4,7 +4,6 @@ import NASAPhotos from "./NASAPhotos";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
 import firebase from "../data/firebase"
-import textFit from "textfit";
 import swal from 'sweetalert';
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -52,17 +51,17 @@ class Results extends Component {
 
       console.log(newPlace)
       // console.log(dbRef.orderByChild("name").equalTo(this.props.match.params.name), 'hi')
-      
-    
+
+
       dbRef.once("value").then(snapshot => {
 
           const stupidDB = snapshot.val();
           console.log(stupidDB, 'database')
           console.log(newPlace, 'cake')
-      
+
 
         this.setState({
-          placeEntries: stupidDB 
+          placeEntries: stupidDB
         })
 
         console.log(this.state.placeEntries, 'muffin')
@@ -100,8 +99,8 @@ class Results extends Component {
           })
         }
       })
-            
-         
+
+
     } else {
       swal({
         title: "Request Denied",
@@ -134,7 +133,6 @@ class Results extends Component {
         })
       }
     })
-    textFit(document.getElementsByClassName('place-heading'));
   }
 
   render() {
@@ -153,12 +151,12 @@ class Results extends Component {
                 </li>
 
                 <li>
-                  <img src="/assets/search-icon.png" alt="Search" />
+                  <a href="/" className="search-icon"><img src="/assets/search-icon.png" alt="Search" /></a>
                 </li>
 
                 { this.state.user ?
                   <li>
-                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                  <img src="/assets/list-icon.png" className="list-icon" alt="Saved Places" />
                 </li>
                  : null}
 
@@ -175,12 +173,14 @@ class Results extends Component {
             </div>
           </div>
 
-          <Link className="searchAgain" to="/">Search Again</Link>
           <div className="details clearfix">
             <div className="stats">
               <div className="info">
-                {/* show lat and long to 2 decimal points */}
-                {"{"}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{"}"}
+                {/* sample temperature and wind speed for styling purposes */}
+                <p>-1°C</p>
+                <p>10 km/hour</p>
+                {/* show lat and lng to 2 decimal points */}
+                <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
               </div>
               <div className="share">
                   <button className="save-icon" onClick={this.handleNewPlace}>
@@ -190,10 +190,13 @@ class Results extends Component {
               </div>
             </div>
             <div className="sat">
-              <NASAPhotos
-                lng={this.props.match.params.lng}
-                lat={this.props.match.params.lat}
-              />
+              <div className="zoom"></div>
+              <div>
+                <NASAPhotos
+                  lng={this.props.match.params.lng}
+                  lat={this.props.match.params.lat}
+                />
+              </div>
             </div>
           </div>
           <EarthPhotos
