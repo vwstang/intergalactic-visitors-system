@@ -102,6 +102,25 @@ class Results extends Component {
       <div>
         <main className="results">
           <div className="results-header">
+            <nav  className="results-nav">
+              <ul>
+                <li>
+                  {
+                    this.state.user ?
+                      <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
+                      <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
+                  }
+                </li>
+                <li>
+                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                </li>
+                <li>
+                  <button onClick={this.appInfo}>
+                    <img src="/assets/about-icon.png" alt="About IVS" />
+                  </button>
+                </li>
+              </ul>
+            </nav>
             <h2>Visit...</h2>
             <h1 className="place-heading">{this.state.name}</h1>
           </div>

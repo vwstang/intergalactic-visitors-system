@@ -26,6 +26,16 @@
     line-height: 1;
 }
 
+// Results nav
+.results-nav ul {
+    text-align: right;
+    padding: 20px 20px 0 0;
+}
+
+.results-nav li {
+    display: inline-block;
+}
+
 // Details area
 .details {
     margin-top: -100px;
