@@ -142,9 +142,13 @@ class Search extends Component {
                   <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
                 }
             </li>
-            <li>
-              <img src="/assets/list-icon.png" alt="Saved Places" />
-            </li>
+
+            {this.state.user ?
+              <li>
+                <img src="/assets/list-icon.png" alt="Saved Places" />
+              </li>
+              : null}
+
             <li>
               <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>

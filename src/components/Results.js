@@ -104,9 +104,13 @@ class Results extends Component {
                       <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
                   }
                 </li>
-                <li>
+
+                { this.state.user ?
+                  <li>
                   <img src="/assets/list-icon.png" alt="Saved Places" />
                 </li>
+                 : null}
+
                 <li>
                   <button onClick={this.appInfo}>
                     <img src="/assets/about-icon.png" alt="About IVS" />
@@ -115,7 +119,9 @@ class Results extends Component {
               </ul>
             </nav>
             <h2>Visit...</h2>
-            <h1 className="place-heading">{this.props.match.params.name}</h1>
+            <div className="place-heading">
+              <h1>{this.props.match.params.name}</h1>
+            </div>
           </div>
 
           <Link className="searchAgain" to="/">Search Again</Link>
