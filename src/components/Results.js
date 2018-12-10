@@ -48,27 +48,74 @@ class Results extends Component {
         lng: this.props.match.params.lng,
       };
 
-    const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
+      const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
-    console.log(newPlace)
+      console.log(newPlace)
+      // console.log(dbRef.orderByChild("name").equalTo(this.props.match.params.name), 'hi')
+      
+    
+      dbRef.once("value").then(snapshot => {
 
-    dbRef.push(newPlace)
-    .then( () => {
-      return (
-        swal({
-          title: "Destination added!",
-          text: "Click the [] to view all destinations saved",
-          icon: "success"
+          const stupidDB = snapshot.val();
+          console.log(stupidDB, 'database')
+          console.log(newPlace, 'cake')
+      
+
+        this.setState({
+          placeEntries: stupidDB 
         })
-      )
-    })
 
+        console.log(this.state.placeEntries, 'muffin')
+
+        if (this.state.placeEntries) {
+          let alreadyExists = false;
+          Object.entries(this.state.placeEntries).forEach((entry) => {
+
+            if (entry[1].lat === newPlace.lat && entry[1].lng === newPlace.lng) {
+              alreadyExists = true;
+              // console.log("IT MATCHES")
+            }
+
+          })
+          if (alreadyExists) {
+            swal({
+              title: "Already in List!",
+              text: "This location is already in your destination list.",
+              icon: "warning"
+            })
+          } else {
+            dbRef.push(newPlace)
+            swal({
+              title: "Destination added!",
+              text: "Click the [] to view all destinations saved",
+              icon: "success"
+            })
+          }
+        } else {
+          dbRef.push(newPlace)
+          swal({
+            title: "Destination added!",
+            text: "Click the [] to view all destinations saved",
+            icon: "success"
+          })
+        }
+      })
+            
+         
     } else {
       swal({
         title: "Request Denied",
         text: "You must login to save this destination place",
         icon: "error"
       })
+    }
+  }
+
+  formatName = name => {
+    if (name.indexOf("@") === -1) {
+      return name;
+    } else {
+      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
     }
   }
 
@@ -124,7 +171,7 @@ class Results extends Component {
             </nav>
             <h2>Visit...</h2>
             <div className="place-heading">
-              <h1>{this.props.match.params.name}</h1>
+              <h1>{this.formatName(this.props.match.params.name)}</h1>
             </div>
           </div>
 

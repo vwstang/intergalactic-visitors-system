@@ -94,15 +94,28 @@ class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let shortName;
+    let locality = "";
+    let country = "";
 
     geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
       .then(res => {
-        shortName = res[0].address_components[0].short_name;
+        // Google Places API geocodeByAddress method results includes address components, which show names of country, principalities, localities, etc. The following code is used to iterate through the entire address components section of the results to find the country and locality and stores to variables to be sent to results page.
+        res[0].address_components.forEach((component, i) => {
+          component.types.forEach(addressComponentType => {
+            if (addressComponentType === "country") {
+              country = res[0].address_components[i].long_name;
+            }
+            if (addressComponentType === "locality" || addressComponentType === "sublocality") {
+              locality = res[0].address_components[i].long_name;
+            }
+          })
+        })
         return getLatLng(res[0]);
       })
       .then(latLng => {
-        window.location.href = `/results/${shortName}/${latLng.lat}/${latLng.lng}`;
+        let destName;
+        locality === "" ? destName = country : destName = `${locality}@${country}`;
+        window.location.href = `/results/${destName}/${latLng.lat}/${latLng.lng}`;
       })
       .catch(err => console.error('Error', err));
 	}
