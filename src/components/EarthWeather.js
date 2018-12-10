@@ -30,6 +30,7 @@ class EarthWeather extends Component {
       }
     }).then(res => {
       console.log(res.data);
+      this.props.getName(res.data.name);
       const wthrRes = res.data.main;
       this.setState({
         humidity: wthrRes.humidity,
@@ -44,7 +45,7 @@ class EarthWeather extends Component {
   componentDidMount() {
     this.getWeather();
   }
-  
+
   render() {
     console.log(this.state.humidity);
     console.log(this.state.pressure);

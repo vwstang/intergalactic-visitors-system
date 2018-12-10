@@ -49,6 +49,7 @@ class Language extends Component {
         disabled={this.props.isDisabled("langValue")}
       >
 					<option value="">Search by language</option>
+					<img className="select-image" src="/assets/dropdown-icon.png" alt="Drop Down" />
 				{
 					this.allLangsWithCountries().map(language => {
 						return (

@@ -134,7 +134,11 @@ class Search extends Component {
         <nav>
           <ul>
             <li>
-              {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
+              {
+                this.state.user ?
+                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> :
+                  <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
+                }
             </li>
             <li>
               <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>

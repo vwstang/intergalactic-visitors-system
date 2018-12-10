@@ -54,7 +54,7 @@ class EarthPhotos extends Component {
 
   render() {
     return (
-      <section>
+      <section className="gallery">
         <ul className="earthlingPhotos">
           {
             this.state.photoList.map(photo => {

@@ -15,11 +15,20 @@ nav {
     right: 0;
     top: calc(50vh - 50px);
     margin-right: 30px;
-    // transform: rotate(90deg);
+}
+
+nav button {
+    background: none;
+    border: none;
+    outline: none;
 }
 
 nav img {
     width: 40px;
+}
+
+nav img:hover, img:focus {
+    transform: rotate(15deg);
 }
 
 .search ul, .search li {
@@ -42,6 +51,7 @@ nav img {
 .search form {
     width: 400px;
     margin: 0 auto;
+    position: relative;
 }
 
 // Search inputs
@@ -58,7 +68,7 @@ input[type=text], select {
     z-index: 50;
 }
 
-// Make plaeholder text same colour
+// Make placeholder text same colour
 ::placeholder {
     color: $primary-color;
     opacity: 1;
@@ -75,8 +85,16 @@ input:disabled, select:disabled {
 }
 
 // Autocomplete dropdown
+.autocomplete-dropdown-container {
+    position: absolute;
+    width: 100%;
+    max-height: 500px;
+    z-index: 50;
+}
+
+// Autocomplete options
 .suggestion-item {
-    background: rgba(12, 5, 15, 0.6);
+    background: rgba(12, 5, 15, 1);
     font-size: 2rem;
     margin-bottom: 5px;
     &--active {
@@ -91,11 +109,16 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    position: relative;
+}
+
+.select-image {
+    position: absolute;
 }
 
 // COME BACK TO OPTION STYLING
 
-button {
+.search form button {
     font-size: 6rem;
     background: none;
     border: none;
@@ -103,10 +126,13 @@ button {
     transform: rotate(-15deg);
     transition: transform 0.8s;
     color: $primary-color;
+    text-shadow: 1px 1px $highlight-color;
 }
 
-button:hover {
+.search form button:hover, .search form button:focus {
+    color: $highlight-color;
     transform: rotate(0deg);
+    text-shadow: 1px 1px $primary-color;
 }
 
 // Search page full title
@@ -119,4 +145,5 @@ button:hover {
     color: $accent-color;
     font-size: 5rem;
     background: rgba(12, 5, 15, 0.6);
+    text-transform: uppercase;
 }

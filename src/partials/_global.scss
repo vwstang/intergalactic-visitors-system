@@ -18,7 +18,6 @@ body {
   font-family: $secondary-font;
   font-size: 2.5rem;
   color: $primary-color;
-  text-transform: uppercase;
 }
 
 img {
@@ -28,6 +27,7 @@ img {
 h1, h2, h3 {
   margin: 0;
   font-family: $primary-font;
+  text-transform: uppercase;
 }
 
 .searchAgain {
