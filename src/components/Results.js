@@ -174,6 +174,10 @@ class Results extends Component {
           <Link className="searchAgain" to="/">Search Again</Link>
           <div className="details clearfix">
             <div className="stats">
+              <EarthWeather
+                lng={this.props.match.params.lng}
+                lat={this.props.match.params.lat}
+              />
               <div className="share">
                   <button onClick={this.handleNewPlace}>
                     <img src="/assets/save-icon.png" alt=""/>
@@ -189,10 +193,6 @@ class Results extends Component {
             </div>
           </div>
           <EarthPhotos
-            lng={this.props.match.params.lng}
-            lat={this.props.match.params.lat}
-          />
-          <EarthWeather
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
           />

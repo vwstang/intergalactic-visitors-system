@@ -4,6 +4,7 @@ import './App.scss';
 
 import Search from "./components/Search";
 import Results from "./components/Results";
+import NotFound from "./components/NotFound";
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={Search} />
-          <Route path="/results/:name/:lat/:lng" component={Results} />
+          <Route exact path="/results/:name/:lat/:lng" component={Results} />
+          <Route component={NotFound} />
         </div>
       </Router>
 		);
