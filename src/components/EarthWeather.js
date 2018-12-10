@@ -80,14 +80,14 @@ class EarthWeather extends Component {
     console.log(this.state);
     return (
       <ul className="weather">
-        <li>{weather}</li>
-        <li>{humidity}</li>
-        <li>{`${pressure} hPa`}</li>
-        <li>{`${currTemp} Degrees`}</li>
-        <li>{`${minTemp} Degrees`}</li>
-        <li>{`${maxTemp} Degrees`}</li>
-        <li>{`${windSpeed} km/h`}</li>
-        <li>{windDir}</li>
+        <li>{`${weather}`}</li>
+        <li>Current: {currTemp}&deg;C</li>
+        <li>Low: {minTemp}&deg;C</li>
+        <li>High: {maxTemp}&deg;C</li>
+        <li>Wind speed: {windSpeed} km/h</li>
+        <li>Wind direction: {windDir}</li>
+        <li>Humidity: {humidity}</li>
+        <li>Pressure: {pressure} hPa</li>
       </ul>
     )
   }
