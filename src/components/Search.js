@@ -94,13 +94,15 @@ class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let shortName;
 
     geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
       .then(res => {
-        return getLatLng(res[0])
+        shortName = res[0].address_components[0].short_name;
+        return getLatLng(res[0]);
       })
       .then(latLng => {
-        window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${latLng.lat}/${latLng.lng}`;
+        window.location.href = `/results/${shortName}/${latLng.lat}/${latLng.lng}`;
       })
       .catch(err => console.error('Error', err));
 	}
