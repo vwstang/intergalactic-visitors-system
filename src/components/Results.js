@@ -14,15 +14,10 @@ class Results extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
       user: null,
       newPlace: {},
       placeEntries: {},
     };
-  }
-
-  getName = name => {
-    this.setState({ name })
   }
 
   login = () => {
@@ -33,8 +28,6 @@ class Results extends Component {
           user: user
         });
       });
-
-
   }
 
   logOut = () => {
@@ -122,7 +115,7 @@ class Results extends Component {
               </ul>
             </nav>
             <h2>Visit...</h2>
-            <h1 className="place-heading">{this.state.name}</h1>
+            <h1 className="place-heading">{this.props.match.params.name}</h1>
           </div>
 
           <Link className="searchAgain" to="/">Search Again</Link>
@@ -147,7 +140,6 @@ class Results extends Component {
             lat={this.props.match.params.lat}
           />
           <EarthWeather
-            getName={this.getName}
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
           />

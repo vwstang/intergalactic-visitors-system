@@ -29,8 +29,6 @@ class EarthWeather extends Component {
         units: "metric"
       }
     }).then(res => {
-      console.log(res.data);
-      this.props.getName(res.data.name);
       const wthrRes = res.data.main;
       this.setState({
         humidity: wthrRes.humidity,
