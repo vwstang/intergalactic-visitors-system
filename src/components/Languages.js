@@ -21,19 +21,19 @@ class Language extends Component {
 		const test = CountryLanguage.getLanguages().filter((lang) => {
 
 			const test2 = CountryLanguage.getLanguage(lang, function (err, language) {
-				
+
 				if (err) {
 					console.log(err);
 				} else {
-					// return language.countries; 
+					// return language.countries;
 					return language.countries.map(country => {
 						return country.name
 					});
-					
+
 				}
 			}).length > 0; // method call
 
-		}) 
+		})
 
 		console.log(test)
 	}
@@ -82,11 +82,11 @@ class Language extends Component {
 		return (
       <select
         name="chosenLanguage"
-        id="chosenLanguage" 
+        id="chosenLanguage"
         onChange={this.handleChange}
         disabled={this.props.isDisabled("langValue")}
       >
-					<option value="">Select a language</option>
+					<option value="">Search by language</option>
 					<img className="select-image" src="/assets/dropdown-icon.png" alt="Drop Down" />
 				{
 					this.allLangsWithCountries().map(language => {

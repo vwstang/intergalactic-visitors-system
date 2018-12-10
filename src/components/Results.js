@@ -4,6 +4,7 @@ import NASAPhotos from "./NASAPhotos";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
 import firebase from "../data/firebase"
+import textFit from "textfit";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -12,10 +13,15 @@ class Results extends Component {
   constructor() {
     super();
     this.state = {
+      name: "",
       user: null,
       newPlace: {},
       placeEntries: {},
     };
+  }
+
+  getName = name => {
+    this.setState({ name })
   }
 
   login = () => {
@@ -47,10 +53,8 @@ class Results extends Component {
     const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
     dbRef.push(newPlace);
-   
+
   }
-
-
 
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
@@ -67,32 +71,50 @@ class Results extends Component {
         })
       }
     })
-
+    textFit(document.getElementsByClassName('place-heading'));
   }
-
 
   render() {
     return (
-      <main className="results">
-        <h1>Intergalactic Visitors System</h1>
-        <h2>Your Results</h2>
-        <button onClick={this.handleNewPlace}>
-          <i class="fas fa-heart"></i>
-        </button>
-        <Link className="searchAgain" to="/">Search Again</Link>
-        <NASAPhotos
-          lng={this.props.match.params.lng}
-          lat={this.props.match.params.lat}
-        />
-        <EarthPhotos
-          lng={this.props.match.params.lng}
-          lat={this.props.match.params.lat}
-        />
-        <EarthWeather
-          lng={this.props.match.params.lng}
-          lat={this.props.match.params.lat}
-        />
-      </main>
+      <div>
+        <main className="results">
+          <div className="results-header">
+            <h2>Visit...</h2>
+            <h1 className="place-heading">{this.state.name}</h1>
+          </div>
+
+          <Link className="searchAgain" to="/">Search Again</Link>
+          <div className="details clearfix">
+            <div className="stats">
+              <div className="share">
+                  <button onClick={this.handleNewPlace}>
+                    <img src="/assets/save-icon.png" alt=""/>
+                  </button>
+                  <img src="/assets/twitter-icon.png" alt=""/>
+              </div>
+            </div>
+            <div className="sat">
+              <NASAPhotos
+                lng={this.props.match.params.lng}
+                lat={this.props.match.params.lat}
+              />
+            </div>
+          </div>
+          <EarthPhotos
+            lng={this.props.match.params.lng}
+            lat={this.props.match.params.lat}
+          />
+          <EarthWeather
+            getName={this.getName}
+            lng={this.props.match.params.lng}
+            lat={this.props.match.params.lat}
+          />
+        </main>
+        <footer>
+          <h3>Intergalactic Visitors System: Earth</h3>
+          <p>Developed by Iman, Sally and Vincent</p>
+        </footer>
+      </div>
     )
   }
 }

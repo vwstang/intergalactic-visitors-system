@@ -10,7 +10,7 @@ class NASAPhotos extends Component {
             NASAPhoto: ""
         }
     }
-  
+
     componentDidMount(){
         // axios request
         axios({
@@ -30,10 +30,12 @@ class NASAPhotos extends Component {
             })
         })
     }
-  
+
     render(){
         return(
-            <img src={this.state.NASAPhoto} alt=""/>
+            // add alt
+            <img className=
+            "nasa" src={this.state.NASAPhoto} alt="" />
         )
     }
 }
