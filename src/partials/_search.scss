@@ -10,7 +10,7 @@
 }
 
 // Search nav
-nav {
+.search-nav {
     position: absolute;
     right: 0;
     top: calc(50vh - 50px);
@@ -31,14 +31,23 @@ nav img:hover, img:focus {
     transform: rotate(15deg);
 }
 
-.search ul, .search li {
+nav ul, nav li {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 }
 
-.search nav li:first-child {
-    padding-bottom: 10px;
+.search-nav li {
+    padding-bottom: 8px;
+}
+
+.search-nav li:last-child {
+    padding-bottom: 0;
+}
+
+// Profile image when logged in
+.profile-picture {
+    border-radius: 50%;
 }
 
 // IVS heading
@@ -144,6 +153,6 @@ select {
     font-family: $primary-font;
     color: $accent-color;
     font-size: 5rem;
-    background: rgba(12, 5, 15, 0.6);
+    background: rgba(12, 5, 15, 0.8);
     text-transform: uppercase;
 }
