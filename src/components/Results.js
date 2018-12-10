@@ -151,7 +151,7 @@ class Results extends Component {
     if (name.indexOf("@") === -1) {
       return name;
     } else {
-      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
+      return `${name.slice(0, name.indexOf("@"))}, ${name.slice(name.indexOf("@") + 1)}`;
     }
   }
 
@@ -217,9 +217,10 @@ class Results extends Component {
           <div className="details clearfix">
             <div className="stats">
               <div className="info">
-                {/* sample temperature and wind speed for styling purposes */}
-                <p>-1°C</p>
-                <p>10 km/hour</p>
+                <EarthWeather
+                  lng={this.props.match.params.lng}
+                  lat={this.props.match.params.lat}
+                />
                 {/* show lat and lng to 2 decimal points */}
                 <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
               </div>
@@ -241,10 +242,6 @@ class Results extends Component {
             </div>
           </div>
           <EarthPhotos
-            lng={this.props.match.params.lng}
-            lat={this.props.match.params.lat}
-          />
-          <EarthWeather
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
           />
