@@ -4,7 +4,7 @@ import NASAPhotos from "./NASAPhotos";
 import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
 import firebase from "../data/firebase"
-import swal from 'sweetalert';
+import swal from '@sweetalert/with-react';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -29,7 +29,7 @@ class Results extends Component {
       });
   }
 
-  logOut = () => {
+  logout = () => {
     auth.signOut()
       .then(() => {
         this.setState({
@@ -37,6 +37,45 @@ class Results extends Component {
         });
       });
   }
+
+  appInfo = () => {
+    swal(
+      <div>
+        <h1>The Intergalactic Visitors System welcomes you!</h1>
+        <p>
+          Welcome to Earth! Search for destination places on Earth by place, language, or by wonder (i.e. what Earthlings consider noteworthy). Login to save and view a list of your favourite destination places!
+        </p>
+        <p>(Remember to use your perception filter while visiting!)</p>
+      </div>
+    )
+  }
+
+  savedList = () => {
+    swal(
+      <div>
+        <h1>Future Destinations List</h1>
+        <ul >
+        {
+          Object.entries(this.state.placeEntries).map((entry) => {
+              return (
+                <li>
+                  <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`} style={{border:"blue", color:"black", textDecoration:"none"}}>
+                  {entry[1].name}
+                  <p>Latitude: {entry[1].lat}</p>
+                  <p>Longitude: {entry[1].lng}</p>
+                  </a>
+                </li>
+              )
+            }
+          )}
+        </ul>
+      </div>
+    )
+  }
+
+
+
+
 
   handleNewPlace = e => {
 
@@ -50,8 +89,6 @@ class Results extends Component {
       const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
       console.log(newPlace)
-      // console.log(dbRef.orderByChild("name").equalTo(this.props.match.params.name), 'hi')
-
 
       dbRef.once("value").then(snapshot => {
 
@@ -128,7 +165,9 @@ class Results extends Component {
           this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
           this.dbRef.on('value', (snapshot) => {
-
+            this.setState({
+              placeEntries: snapshot.val()
+            })
           });
         })
       }
@@ -156,7 +195,9 @@ class Results extends Component {
 
                 { this.state.user ?
                   <li>
-                  <img src="/assets/list-icon.png" className="list-icon" alt="Saved Places" />
+                    <button className="list-icon" onClick={this.savedList}>
+                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                  </button>
                 </li>
                  : null}
 

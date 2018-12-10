@@ -55,6 +55,30 @@ class Search extends Component {
     )
   }
 
+  savedList = () => {
+    swal(
+      <div>
+        <h1>Future Destinations List</h1>
+        <ul >
+          {
+            Object.entries(this.state.placeEntries).map((entry) => {
+              return (
+                <li>
+                  <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`} style={{ border: "blue", color: "black", textDecoration: "none" }}>
+                    {entry[1].name}
+                    <p>Latitude: {entry[1].lat}</p>
+                    <p>Longitude: {entry[1].lng}</p>
+                  </a>
+                </li>
+              )
+            }
+            )}
+        </ul>
+      </div>
+    )
+  }
+
+
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -65,7 +89,9 @@ class Search extends Component {
           this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
           this.dbRef.on('value', (snapshot) => {
-
+            this.setState({
+              placeEntries: snapshot.val()
+            })
           });
         })
       }
@@ -158,7 +184,9 @@ class Search extends Component {
 
             {this.state.user ?
               <li>
-                <img src="/assets/list-icon.png" alt="Saved Places" />
+                <button onClick={this.savedList}>
+                  <img src="/assets/list-icon.png" alt="Saved Places" />
+                </button>
               </li>
               : null}
 
