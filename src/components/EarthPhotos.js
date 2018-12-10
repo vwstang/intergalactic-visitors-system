@@ -41,7 +41,7 @@ class EarthPhotos extends Component {
         per_page: 50
       }
     }).then(res => {
-      const urlList = res.data.photos.photo.map(photo => [this.constructFlickrURL(photo), photo.title])
+      const urlList = res.data.photos.photo.map(photo => [photo.id, this.constructFlickrURL(photo), photo.title])
       this.setState({
         photoList: urlList
       })
@@ -59,10 +59,10 @@ class EarthPhotos extends Component {
           {
             this.state.photoList.map(photo => {
               return (
-                <li className="earthlingPhotos-item">
+                <li key={photo[0]} className="earthlingPhotos-item">
                   <img
-                    src={photo[0]}
-                    alt={photo[1]}
+                    src={photo[1]}
+                    alt={photo[2]}
                     className="earthlingPhotos-image"
                   />
                 </li>

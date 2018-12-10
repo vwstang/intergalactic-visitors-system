@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
 import LocationSearchInput from "./Autocomplete";
-import Results from "./Results";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Language from "./Languages";
-import axios from "axios";
-import firebase from "../data/firebase"
+import Wonders from "./Wonders";
+import firebase from "../data/firebase";
+import swal from '@sweetalert/with-react'
 
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -15,15 +16,9 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      qryLat: 0,
-      qryLng: 0,
-      showResults: false,
-      placeQuery: "",
       specValue: "",
       langValue: "",
       wndrValue: "",
-      Language: "",
-      LanguageISO: "",
       user: null
     };
   }
@@ -48,6 +43,18 @@ class Search extends Component {
       });
   }
 
+  appInfo = () => {
+    swal(
+      <div>
+        <h1>The Intergalactic Visitors System welcomes you!</h1>
+        <p>
+          Welcome to Earth! Search for destination places on Earth by place, language, or by wonder (i.e. what Earthlings consider noteworthy). Login to save and view a list of your favourite destination places!
+        </p>
+        <p>(Remember to use your perception filter while visiting!)</p>
+      </div>
+    )
+  }
+
   // componentDidMount() {
   //   auth.onAuthStateChanged((user) => {
   //     if (user) {
@@ -69,59 +76,36 @@ class Search extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value,
-      showResults: false
+      [e.target.id]: e.target.value
     })
   }
 
-  updateSpecValue = value => {
+  updateSpecValue = (address) => {
     this.setState({
-      specValue: value,
-      showResults: false
+      specValue: address
     })
   }
 
-  updateLangValue = value => {
-
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
-      params: {
-        key: apiKeys.googlemaps,
-        outputFormat: 'json',
-        address: value,
-      }
-    }).then((res) => {
-
-      this.setState({
-        langValue: value,
-        showResults: false,
-        qryLat: res.data.results[0].geometry.location.lat,
-        qryLng: res.data.results[0].geometry.location.lng,
-      })
-
-    })
-    // This should send "value" to another function which will do something that gets coordinates for a random city
-  }
-
-  updateCoords = coords => {
+  updateLangValue = (value) => {
     this.setState({
-      qryLat: coords.lat,
-      qryLng: coords.lng
-    });
+      langValue: value
+    })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-		console.log(this.state.qryLat);
-		console.log(this.state.qryLng);
-    console.log(this.state.language, this.state.languageISO);
-
-		this.setState({
-			showResults: true
-		})
+    geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
+      .then(res => {
+        return getLatLng(res[0])
+      })
+      .then(latLng => {
+        window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${latLng.lat}/${latLng.lng}`;
+      })
+      .catch(err => console.error('Error', err));
 	}
 
-  isDisabled = whichInput => {
+  isDisabled = (whichInput) => {
     switch (whichInput) {
       case "specValue":
         if (this.state.langValue !== "" || this.state.wndrValue !== "") {
@@ -144,32 +128,27 @@ class Search extends Component {
     }
   }
 
-  showResults = ready => {
-    if (ready) {
-      window.location.href = `/results/${this.state.specValue}${this.state.langValue}${this.state.wndrValue}/${this.state.qryLat}/${this.state.qryLng}`;
-    }
-  }
-
-
   render() {
     return (
-      <main class="search">
+      <main className="search">
         <nav>
           <ul>
             <li>
-              <a href="#" tabIndex="0">
-              {this.state.user ? <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> : <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>}
-              </a>
+              {
+                this.state.user ?
+                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" /></button> :
+                  <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
+                }
             </li>
             <li>
-              <a href="#" tabIndex="0"><img src="/assets/about-icon.png" alt="About IVS"/></a>
+              <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
             </li>
           </ul>
         </nav>
         <h1>IVS</h1>
         <form action="" onSubmit={this.handleSubmit}>
           <label
-            htmlFor="placeQuery" className="visuallyhidden"
+            htmlFor="specValue" className="visuallyhidden"
           >
             Search by place
           </label>
@@ -177,7 +156,8 @@ class Search extends Component {
             scripts={[`https://maps.googleapis.com/maps/api/js?key=${apiKeys.googlemaps}&libraries=places`]}
           >
             <LocationSearchInput
-              updateCoords={this.updateCoords}
+              id="specValue"
+              specValue={this.state.specValue}
               updateSpecValue={this.updateSpecValue}
               isDisabled={this.isDisabled}
             />
@@ -185,28 +165,19 @@ class Search extends Component {
           <label htmlFor="langValue" className="visuallyhidden">Search by language</label>
           <Language
             id="langValue"
-            type="text"
             updateLangValue={this.updateLangValue}
-            value={this.state.langValue}
-            placeholder="Search by Language"
-            onChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
           <label htmlFor="wndrValue" className="visuallyhidden">Search by wonders</label>
-          <input
+          <Wonders
             id="wndrValue"
-            type="text"
-            value={this.state.wndrValue}
-            placeholder="Search by Wonder"
-            onChange={this.handleChange}
-            disabled={this.isDisabled("wndrValue")}
+            handleChange={this.handleChange}
+            isDisabled={this.isDisabled}
           />
           <button type="submit">
-            <i class="fas fa-space-shuttle" tabIndex="0"></i>
+            <i className="fas fa-space-shuttle"></i>
           </button>
         </form>
-        {/* Can pass the longitudinal and latitudinal coordinates as props to EarthPhotos to get destination photo results from Flickr */}
-        {this.showResults(this.state.showResults)}
         <div className="title">Intergalactic Visitors System: Earth</div>
       </main>
     )

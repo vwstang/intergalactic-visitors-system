@@ -5,6 +5,7 @@ import EarthPhotos from "./EarthPhotos";
 import EarthWeather from "./EarthWeather";
 import firebase from "../data/firebase"
 import textFit from "textfit";
+import swal from 'sweetalert';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -32,9 +33,11 @@ class Results extends Component {
           user: user
         });
       });
+
+
   }
 
-  logout = () => {
+  logOut = () => {
     auth.signOut()
       .then(() => {
         this.setState({
@@ -44,16 +47,36 @@ class Results extends Component {
   }
 
   handleNewPlace = e => {
-    const newPlace = {
-      name: this.props.match.params.name,
-      lat: this.props.match.params.lat,
-      lng: this.props.match.params.lng,
+
+    if (this.state.user) {
+      const newPlace = {
+        name: this.props.match.params.name,
+        lat: this.props.match.params.lat,
+        lng: this.props.match.params.lng,
       };
 
     const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
-    dbRef.push(newPlace);
+    console.log(newPlace)
 
+    dbRef.push(newPlace)
+    .then( () => {
+      return (
+        swal({
+          title: "Destination added!",
+          text: "Click the [] to view all destinations saved",
+          icon: "success"
+        })
+      )
+    })
+
+    } else {
+      swal({
+        title: "Request Denied",
+        text: "You must login to save this destination place",
+        icon: "error"
+      })
+    }
   }
 
   componentDidMount() {
