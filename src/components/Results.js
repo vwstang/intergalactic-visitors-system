@@ -72,6 +72,14 @@ class Results extends Component {
     }
   }
 
+  formatName = name => {
+    if (name.indexOf("@") === -1) {
+      return name;
+    } else {
+      return `${name.slice(0, name.indexOf("@"))} ${name.slice(name.indexOf("@") + 1)}`;
+    }
+  }
+
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -96,7 +104,7 @@ class Results extends Component {
         <main className="results">
           <div className="results-header">
             <h2>Visit...</h2>
-            <h1 className="place-heading">{this.props.match.params.name}</h1>
+            <h1 className="place-heading">{this.formatName(this.props.match.params.name)}</h1>
           </div>
 
           <Link className="searchAgain" to="/">Search Again</Link>
