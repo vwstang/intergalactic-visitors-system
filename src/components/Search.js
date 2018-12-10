@@ -55,22 +55,23 @@ class Search extends Component {
     )
   }
 
-  // componentDidMount() {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       this.setState({
-  //         user: user
-  //       }, () => {
-  //         // create reference specific to user
-  //         this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }, () => {
+          // create reference specific to user
+          this.dbRef = firebase.database().ref(`${this.state.user.uid}`);
 
-  //         this.dbRef.on('value', (snapshot) => {
+          this.dbRef.on('value', (snapshot) => {
 
-  //         });
-  //       })
-  //     }
-  //   })
-  // }
+          });
+        })
+      }
+    })
+
+  }
 
 
   handleChange = (e) => {

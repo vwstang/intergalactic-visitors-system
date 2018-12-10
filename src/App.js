@@ -4,7 +4,6 @@ import './App.scss';
 
 import Search from "./components/Search";
 import Results from "./components/Results";
-import swal from 'sweetalert';
 
 
 class App extends Component {
