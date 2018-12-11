@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 
 class LocationSearchInput extends Component {
-  constructor() {
-    super();
-    // this.state = {
-    //   address: ""
-    // };
-  }
-
   handleChange = address => {
     // this.setState({ address })
     this.props.updateSpecValue(address);
