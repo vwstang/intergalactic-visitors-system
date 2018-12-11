@@ -41,27 +41,42 @@ class Language extends Component {
 
   render() {
 		return (
-      <select
-        id={this.props.id}
-        name="chosenLanguage"
-        placeholder="Search by Language"
-        onChange={this.handleChange}
-        disabled={this.props.isDisabled("langValue")}
-      >
-					<option value="" className="dropdown">
-            Search by language
+      <div className="select-box select-language">
+        <select
+          id={this.props.id}
+          name="chosenLanguage"
+          placeholder="Search by Language"
+          onChange={this.handleChange}
+          disabled={this.props.isDisabled("langValue")}
+        >
+          <option value="" className="dropdown">
+            Search by Language
           </option>
-
-				{
-					this.allLangsWithCountries().map(language => {
-						return (
-							<option value={language.iso639_3} key={language.iso639_3} className="languageOption">{language.name}</option>
-						)
-					})
-				}
-
-			</select>
-
+          {
+            this.allLangsWithCountries().map(language => {
+              return (
+                <option value={language.iso639_3} key={language.iso639_3} className="languageOption">
+                  {language.name}
+                </option>
+              )
+            })
+          }
+        </select>
+        <div className="select-selected">
+          <p>Search by Language</p>
+        </div>
+        <div className="select-items select-hide">
+          {
+            this.allLangsWithCountries().map(language => {
+              return (
+                <div id={language.iso639_3} key={language.iso639_3} className="languageOption">
+                  {language.name}
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
 			)
 	}
 }

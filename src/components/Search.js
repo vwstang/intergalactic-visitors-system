@@ -20,7 +20,8 @@ class Search extends Component {
       langValue: "",
       wndrValue: "",
       user: null,
-      placeEntries: {}
+      placeEntries: {},
+      invisible: true
     };
   }
 
@@ -52,7 +53,8 @@ class Search extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
+      invisible: false
     })
   }
 
@@ -120,9 +122,6 @@ class Search extends Component {
   }
 
   handleReset = () => {
-    // LocationSearchInput.setState = ({
-    //   address: ""
-    // })
     this.setState({
       specValue: "",
       langValue: "",
@@ -179,10 +178,10 @@ class Search extends Component {
             handleChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
-          <button type="submit">
+          <button type="submit" className={this.state.invisible ? 'invisible' : null} >
             <i className="fas fa-space-shuttle"></i>
           </button>
-          <button type="reset" className="reset" onClick={this.handleReset}>
+          <button type="reset" className={this.state.invisible ? 'invisible' : null} onClick={this.handleReset}>
             <i className="fas fa-times-circle"></i>
           </button>
 

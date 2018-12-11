@@ -1,7 +1,7 @@
 // Search styles
 // Search page (main) is browser height
 .search {
-    background: url(searchBackground.jpg);
+    background: url(assets/searchBackground.jpg);
     background-size: cover;
     background-position-x: center;
     height: 100vh;
@@ -72,7 +72,7 @@ nav ul, nav li {
 }
 
 // Search inputs
-input[type=text], select {
+input[type=text], select, .select-selected, .select-items div, .select-items {
     display: block;
     color: $primary-color;
     background: rgba(12, 5, 15, 0.6);
@@ -101,7 +101,7 @@ input:disabled, select:disabled {
     display: none;
 }
 
-// Autocomplete dropdown
+// Autocomplete dropdown (place)
 .autocomplete-dropdown-container {
     position: absolute;
     width: 100%;
@@ -111,12 +111,12 @@ input:disabled, select:disabled {
 
 // Autocomplete options
 .suggestion-item {
-    background: rgba(12, 5, 15, 0.6);
+    background: rgba(12, 5, 15, 1);
     font-size: 2rem;
     margin-bottom: 5px;
     padding: 5px 0;
     &--active {
-        background: rgba(242, 165, 59, 0.6);
+        background: rgba(242, 165, 59, 1);
         color: $secondary-color;
         font-size: 2rem;
         margin-bottom: 5px;
@@ -124,20 +124,64 @@ input:disabled, select:disabled {
     }
 }
 
+// Select styling (language and wonder)
+// Hide form select
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    display: none;
+}
+
+// Custom select container
+.select-box {
+    width: 400px;
     position: relative;
 }
 
-// // Dropdown in select
-// .dropdown {
-//     background: url(dropdown-icon.png);
-// }
+// Hide options when custom select closed
+.select-hide {
+  display: none;
+}
 
-// COME BACK TO OPTION STYLING
+// Custom select arrow
+.select-selected:after {
+  position: absolute;
+  content: "";
+  background: url(assets/dropdown-icon.png);
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: center;
+  top: 10px;
+  right: 15px;
+  width: 53px;
+  height: 53px;
+}
 
+// Point arrow up when open
+.select-selected.select-arrow-active:after {
+    background: url(assets/dropdown-icon-up.png);
+}
+
+// Custom select paragraph
+.select-selected p {
+    margin: 0;
+    text-align-last: left;
+}
+
+// Custom select options
+.select-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.select-items div:hover, .same-as-selected {
+    background: rgba(242, 165, 59, 1);
+    color: $secondary-color;
+}
+
+// Search and reset buttons
 .search form button {
     font-size: 6rem;
     background: none;
@@ -153,6 +197,11 @@ select {
     color: $highlight-color;
     transform: rotate(0deg);
     text-shadow: 1px 1px $primary-color;
+}
+
+// Buttons invisible if toggled
+.invisible {
+    display: none;
 }
 
 // Search page full title
