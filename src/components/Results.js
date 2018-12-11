@@ -239,7 +239,7 @@ class Results extends Component {
                   <button className="save-icon" onClick={this.handleNewPlace}>
                     <img src="/assets/save-icon.png" alt="" />
                   </button>
-                  <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank">
+                  <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank" rel="noopener noreferrer">
                     <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
                   </a>
                 </div>

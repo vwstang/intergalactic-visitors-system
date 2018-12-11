@@ -75,16 +75,12 @@ class EarthWeather extends Component {
   }
 
   render() {
-    const { weather, humidity, pressure, currTemp, minTemp, maxTemp, windSpeed, windDir } = this.state;
+    const { weather, currTemp, windSpeed, windDir } = this.state;
     return (
       <div className="weather-info">
         <p>{`${weather}`}</p>
         <p>Currently {currTemp}&deg;C</p>
-        {/* <p>Low: {minTemp}&deg;C</p> */}
-        {/* <p>High: {maxTemp}&deg;C</p> */}
         <p>Winds @ {windSpeed} km/h {windDir}</p>
-        {/* <p>Humidity: {humidity}</p> */}
-        {/* <p>Pressure: {pressure} hPa</p> */}
       </div>
     )
   }

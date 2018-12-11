@@ -242,7 +242,7 @@ class Search extends Component {
             <i className="fas fa-space-shuttle"></i>
           </button>
           <button type="reset" className="reset" onClick={this.handleReset}>
-            <i class="fas fa-times-circle"></i>
+            <i className="fas fa-times-circle"></i>
           </button>
 
         </form>
