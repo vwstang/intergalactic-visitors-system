@@ -19,7 +19,8 @@ class Search extends Component {
       specValue: "",
       langValue: "",
       wndrValue: "",
-      user: null
+      user: null,
+      placeEntries: {}
     };
   }
 
@@ -61,6 +62,7 @@ class Search extends Component {
         <h1>Future Destinations List</h1>
         <ul >
           {
+            this.state.placeEntries ? 
             Object.entries(this.state.placeEntries).map((entry) => {
               return (
                 <li>
@@ -71,8 +73,10 @@ class Search extends Component {
                   </a>
                 </li>
               )
-            }
-            )}
+            })
+            :
+              <p>You have no saved places</p>          
+          }
         </ul>
       </div>
     )
