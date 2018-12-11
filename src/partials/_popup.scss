@@ -1,0 +1,100 @@
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.alert-item {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: left;
+
+  &:hover {
+    background: $accent-color;
+    border-radius: 5px;
+  }
+}
+
+.alert-link {
+  text-decoration: none;
+  color: $primary-color;
+}
+
+.alert-info {
+  margin: 0;
+}
+
+$sweetalert-bg: rgba(0, 0, 0, 0.9);
+
+.swal-modal {
+  width: auto;
+  max-width: 80vw;
+  background: $sweetalert-bg;
+}
+
+.swal-icon {
+  background: $sweetalert-bg;
+
+  &--success {
+
+    &__line {
+      background: green;
+    }
+
+    &__ring {
+      border: green;
+    }
+
+    &__hide-corners {
+      background: $sweetalert-bg;
+    }
+
+    &:before {
+      background: $sweetalert-bg;
+    }
+
+    &:after {
+      background: $sweetalert-bg;
+    }
+  }
+}
+
+.swal-title, .swal-text {
+  color: $primary-color;
+}
+
+.swal-content .alert-list {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.swal-footer {
+  text-align: center;
+  margin-top: 0;
+  padding: 20px 0;
+}
+
+.swal-button {
+  background: $primary-color;
+  color: black;
+
+  &:not([disabled]):hover {
+    background: $accent-color;
+    color: white;
+  }
+    
+  &:active {
+    background: $accent-color;
+    color: white;
+  }
+
+  &:hover {
+    background: $accent-color;
+    color: white;
+  }
+
+  &:focus {
+    background: $accent-color;
+    color: white;
+  }
+}

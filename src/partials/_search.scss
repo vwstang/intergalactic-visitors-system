@@ -1,7 +1,7 @@
 // Search styles
 // Search page (main) is browser height
 .search {
-    background: url(searchBackground.jpg);
+    background: url(assets/searchBackground.jpg);
     background-size: cover;
     background-position-x: center;
     height: 100vh;
@@ -115,6 +115,7 @@ input:disabled, select:disabled {
     font-size: 2rem;
     margin-bottom: 5px;
     padding: 5px 0;
+    
     &--active {
         background: rgba(242, 165, 59, 0.6);
         color: $secondary-color;
