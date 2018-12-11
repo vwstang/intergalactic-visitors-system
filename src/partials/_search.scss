@@ -21,14 +21,22 @@ nav button {
     background: none;
     border: none;
     outline: none;
+    transform: rotate(0deg);
+    transition: transform 0.4s;
 }
 
 nav img {
     width: 40px;
+    transform: rotate(0deg);
+    transition: transform 0.4s;
 }
 
 nav button:hover, nav button:focus, nav a img:hover {
     transform: rotate(15deg);
+}
+
+nav button:active {
+    transform: rotate(0deg);
 }
 
 nav ul, nav li {
@@ -88,9 +96,14 @@ input:focus, select:focus {
     outline-color: $primary-color;
 }
 
-// Make other input boxes invisible when disabled
+// Make other input boxes less visible when disabled
 input:disabled, select:disabled {
     opacity: 0.5;
+}
+
+// Make other input boxes invisible when disabled
+.invisible {
+    opacity: 0;
 }
 
 // Autocomplete dropdown
