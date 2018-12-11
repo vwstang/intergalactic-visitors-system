@@ -55,19 +55,22 @@ class Results extends Component {
       <div>
         <h1>Future Destinations List</h1>
         <ul >
-        {
-          Object.entries(this.state.placeEntries).map((entry) => {
-              return (
-                <li>
-                  <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`} style={{border:"blue", color:"black", textDecoration:"none"}}>
-                  {entry[1].name}
-                  <p>Latitude: {entry[1].lat}</p>
-                  <p>Longitude: {entry[1].lng}</p>
-                  </a>
-                </li>
-              )
-            }
-          )}
+          {
+            this.state.placeEntries ?
+              Object.entries(this.state.placeEntries).map((entry) => {
+                return (
+                  <li>
+                    <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`} style={{ border: "blue", color: "black", textDecoration: "none" }}>
+                      {entry[1].name}
+                      <p>Latitude: {entry[1].lat}</p>
+                      <p>Longitude: {entry[1].lng}</p>
+                    </a>
+                  </li>
+                )
+              })
+              :
+                <p>You have no saved places</p>
+              }
         </ul>
       </div>
     )
@@ -88,17 +91,15 @@ class Results extends Component {
 
       const dbRef = firebase.database().ref(`/${this.state.user.uid}`);
 
-      console.log(newPlace)
-
       dbRef.once("value").then(snapshot => {
 
-          const stupidDB = snapshot.val();
-          console.log(stupidDB, 'database')
-          console.log(newPlace, 'cake')
+        const snapDB = snapshot.val();
+        console.log(snapDB, 'database')
+        console.log(newPlace, 'cake')
 
 
         this.setState({
-          placeEntries: stupidDB
+          placeEntries: snapDB
         })
 
         console.log(this.state.placeEntries, 'muffin')
@@ -226,7 +227,9 @@ class Results extends Component {
                   <button className="save-icon" onClick={this.handleNewPlace}>
                     <img src="/assets/save-icon.png" alt="" />
                   </button>
-                  <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
+                  <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank">
+                    <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
+                  </a>
                 </div>
               </div>
               <div className="sat">
