@@ -50,7 +50,6 @@ class Search extends Component {
 
   }
 
-
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
@@ -120,6 +119,17 @@ class Search extends Component {
     }
   }
 
+  handleReset = () => {
+    // LocationSearchInput.setState = ({
+    //   address: ""
+    // })
+    this.setState = ({
+      specValue: "",
+      langValue: "",
+      wndrValue: ""
+    });
+  }
+
   render() {
     return (
       <main className="search">
@@ -172,6 +182,10 @@ class Search extends Component {
           <button type="submit">
             <i className="fas fa-space-shuttle"></i>
           </button>
+          <button type="reset" className="reset" onClick={this.handleReset}>
+            <i class="fas fa-times-circle"></i>
+          </button>
+
         </form>
         <div className="title">Intergalactic Visitors System: Earth</div>
       </main>

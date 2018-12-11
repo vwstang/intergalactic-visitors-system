@@ -62,7 +62,7 @@ class Results extends Component {
             dbRef.push(newPlace)
             swal({
               title: "Destination added!",
-              text: "Click the [] to view all destinations saved",
+              text: "Click the list icon to view all destinations saved!",
               icon: "success"
             })
           }
@@ -70,7 +70,7 @@ class Results extends Component {
           dbRef.push(newPlace)
           swal({
             title: "Destination added!",
-            text: "Click the [] to view all destinations saved",
+            text: "Click the list icon to view all destinations saved!",
             icon: "success"
           })
         }
@@ -145,39 +145,40 @@ class Results extends Component {
             <div className="place-heading">
               <h1>{this.formatName(this.props.match.params.name)}</h1>
             </div>
-          </div>
-
-          <div className="details clearfix">
-            <div className="stats">
-              <div className="info">
-                <EarthWeather
-                  lng={this.props.match.params.lng}
-                  lat={this.props.match.params.lat}
-                />
-                {/* show lat and lng to 2 decimal points */}
-                <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
+            <div className="details clearfix">
+              <div className="sat">
+                <div className="zoom"></div>
+                <div>
+                  <NASAPhotos
+                    lng={this.props.match.params.lng}
+                    lat={this.props.match.params.lat}
+                  />
+                  <div className="overlay">
+                    <p className="sat-caption">Satellite View</p>
+                  </div>
+                </div>
               </div>
-              <div className="share">
-                <button className="save-icon" onClick={this.handleNewPlace}>
-                  <img src="/assets/save-icon.png" alt=""/>
-                </button>
-           
-                <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank">
+              <div className="stats">
+                <div className="info">
+                  <EarthWeather
+                    lng={this.props.match.params.lng}
+                    lat={this.props.match.params.lat}
+                  />
+                  {/* show lat and lng to 2 decimal points */}
+                  <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
+                </div>
+                <div className="share">
+                  <button className="save-icon" onClick={this.handleNewPlace}>
+                    <img src="/assets/save-icon.png" alt="" />
+                  </button>
+                  <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank">
                     <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
-                </a>
-
-              </div>
-            </div>
-            <div className="sat">
-              <div className="zoom"></div>
-              <div>
-                <NASAPhotos
-                  lng={this.props.match.params.lng}
-                  lat={this.props.match.params.lat}
-                />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+          <h2 className="gallery-heading">Snapshots</h2>
           <EarthPhotos
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
