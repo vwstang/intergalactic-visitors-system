@@ -16,7 +16,7 @@ class Results extends Component {
     this.state = {
       user: null,
       newPlace: {},
-      placeEntries: {},
+      placeEntries: {}
     };
   }
 
@@ -134,10 +134,9 @@ class Results extends Component {
                   type="about"
                 />
                 <li>
-                  {/* We should also change this to a background on the a tag instead of img */}
-                  <a href="/" className="search-icon">
-                    <img src="/assets/search-icon.png" alt="Search" />
-                  </a>
+                  <button
+                    onClick={() => window.location.href = "/"}
+                    className="btn btn-search" />
                 </li>
               </ul>
             </nav>
@@ -168,12 +167,14 @@ class Results extends Component {
                   <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
                 </div>
                 <div className="share">
-                  <button className="save-icon" onClick={this.handleNewPlace}>
-                    <img src="/assets/save-icon.png" alt="" />
-                  </button>
-                  <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank" rel="noopener noreferrer">
-                    <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
-                  </a>
+                  <button
+                    className="btn btn-save"
+                    onClick={this.handleNewPlace}
+                  />
+                  <button
+                    className="btn btn-twitter"
+                    onClick={() => window.location.href = `http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`}
+                  />
                 </div>
               </div>
             </div>

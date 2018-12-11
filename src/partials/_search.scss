@@ -17,6 +17,7 @@
     margin-right: 30px;
 }
 
+// Nav links
 nav button {
     background: none;
     border: none;
@@ -25,26 +26,26 @@ nav button {
     transition: transform 0.4s;
 }
 
+// Nav images
 nav img {
     width: 40px;
     transform: rotate(0deg);
     transition: transform 0.4s;
 }
 
+// Rotate on hover
 nav button:hover, nav button:focus, nav a img:hover {
     transform: rotate(15deg);
 }
 
-nav button:active {
-    transform: rotate(0deg);
-}
-
+// Default nav styling
 nav ul, nav li {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 }
 
+// Nav spacing
 .search-nav li {
     padding-bottom: 8px;
 }
@@ -65,6 +66,7 @@ nav ul, nav li {
     line-height: 1;
 }
 
+// Search form
 .search form {
     width: 400px;
     margin: 0 auto;
@@ -72,7 +74,7 @@ nav ul, nav li {
 }
 
 // Search inputs
-input[type=text], select, .select-selected, .select-items div, .select-items {
+input[type=text], select {
     display: block;
     color: $primary-color;
     background: rgba(12, 5, 15, 0.6);
@@ -92,12 +94,12 @@ input[type=text], select, .select-selected, .select-items div, .select-items {
 }
 
 // Make outline primary colour when clicked
-input:focus, select:focus {
+input:focus, select:focus, .select-box:focus {
     outline-color: $primary-color;
 }
 
 // Make other input boxes less visible when disabled
-input:disabled, select:disabled {
+input:disabled, select:disabled, button:disabled {
     display: none;
 }
 
@@ -113,14 +115,14 @@ input:disabled, select:disabled {
 .suggestion-item {
     background: rgba(12, 5, 15, 1);
     font-size: 2rem;
-    margin-bottom: 5px;
-    padding: 5px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid $accent-color;
     &--active {
         background: rgba(242, 165, 59, 1);
         color: $secondary-color;
         font-size: 2rem;
-        margin-bottom: 5px;
-        padding: 5px 0;
+        padding: 10px 0;
+        border-bottom: 1px solid $accent-color;
     }
 }
 
@@ -161,6 +163,25 @@ select {
     background: url(assets/dropdown-icon-up.png);
 }
 
+// Style custom select
+.select-selected {
+    cursor: pointer;
+    color: $primary-color;
+    background: rgba(12, 5, 15, 0.6);
+    text-transform: uppercase;
+    border: 0;
+    width: 400px;
+    position: relative;
+    z-index: 50;
+    margin: 0 auto 10px;
+    padding: 20px 30px;
+}
+
+.select-items {
+    background: rgba(12, 5, 15, 0.6);
+    border-top: 1px solid $accent-color;
+}
+
 // Custom select paragraph
 .select-selected p {
     margin: 0;
@@ -169,15 +190,22 @@ select {
 
 // Custom select options
 .select-items {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
+    width: 400px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    overflow: scroll;
+    height: 250px;
+}
+
+.select-items div {
+    padding: 10px 0;
 }
 
 .select-items div:hover, .same-as-selected {
-    background: rgba(242, 165, 59, 1);
+    background: rgba(242, 165, 59, 0.6);
     color: $secondary-color;
 }
 

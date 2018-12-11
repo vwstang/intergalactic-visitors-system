@@ -39,6 +39,7 @@
 // Nav items in one row
 .results-nav li {
     display: inline-block;
+    margin-right: 10px;
 }
 
 .list-icon {
@@ -69,26 +70,20 @@
     margin: 0;
 }
 
-// Buttons
-.share button {
-    background: none;
-    outline: none;
-    border: none;
-}
-
 // Hover effect on share icons
-.save-icon, .twitter-icon {
-    transform: scale(1);
-    transition: transform 0.3s;
-}
-
-.save-icon:hover, .twitter-icon:hover {
-    transform: scale(1.1);
-}
-
-.save-icon {
+.btn-save {
     margin-right: 10px;
 }
+
+.btn-save, .btn-twitter {
+    transform: scale(1);
+    transition: transform 0.3s;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
 
 // Container for satellite photo
 .sat {

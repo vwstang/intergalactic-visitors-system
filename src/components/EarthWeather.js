@@ -7,11 +7,7 @@ class EarthWeather extends Component {
     super();
     this.state = {
       weather: "",
-      humidity: 0,
-      pressure: 0,
-      currTemp: 0,
-      minTemp: 0,
-      maxTemp: 0,
+      temp: 0,
       windSpeed: 0,
       windDir: ""
     };
@@ -59,11 +55,7 @@ class EarthWeather extends Component {
       const wthrRes = res.data;
       this.setState({
         weather: wthrRes.weather[0].main,
-        humidity: wthrRes.main.humidity,
-        pressure: wthrRes.main.pressure, // Results in hPa
-        currTemp: wthrRes.main.temp, // Results in Celsius (as Axios request returns results in metric system)
-        minTemp: wthrRes.main.temp_min,
-        maxTemp: wthrRes.main.temp_max,
+        temp: wthrRes.main.temp, // Results in Celsius (as Axios request returns results in metric system)
         windSpeed: this.getWindSpd(wthrRes.wind.speed), // Results in m/s, converted to km/h
         windDir: this.getWindDir(wthrRes.wind.deg) // Results in degrees, converted to N/NE/E/SE/S/SW/W/NW
       })
@@ -75,11 +67,11 @@ class EarthWeather extends Component {
   }
 
   render() {
-    const { weather, currTemp, windSpeed, windDir } = this.state;
+    const { weather, temp, windSpeed, windDir } = this.state;
     return (
       <div className="weather-info">
         <p>{`${weather}`}</p>
-        <p>Currently {currTemp}&deg;C</p>
+        <p>Currently {temp}&deg;C</p>
         <p>Winds @ {windSpeed} km/h {windDir}</p>
       </div>
     )

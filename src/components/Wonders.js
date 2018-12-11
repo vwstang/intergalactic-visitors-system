@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import wonders from "../data/wonders";
 
 class WondersSearch extends Component {
+
+  showSelect = () => {
+    var element = document.getElementsByClassName("select-items-wonder");
+    element[0].classList.toggle("select-hide");
+    var otherElement = document.getElementsByClassName("select-items-language");
+    otherElement[0].classList.add("select-hide");
+  }
+
+  closeSelect = () => {
+    var element = document.getElementsByClassName("select-items-wonder");
+    element[0].classList.add("select-hide");
+  }
+
   render() {
     return (
-      <div className="select-box select-language">
+      <div className="select-box select-wonder" tabIndex="0" onBlur={this.closeSelect}>
         <select
           id={this.props.id}
           name="chosenWonder"
@@ -20,10 +33,10 @@ class WondersSearch extends Component {
             })
           }
         </select>
-        <div className="select-selected">
+        <div className="select-selected" onClick={this.showSelect}>
           <p>Search by Wonder</p>
         </div>
-        <div className="select-items select-hide">
+        <div className="select-items select-items-wonder select-hide">
           {
             Object.entries(wonders).map(wonder => {
               return (

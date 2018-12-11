@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import swal from "@sweetalert/with-react";
 
 class Popups extends Component {
+  formatName = name => {
+    if (name.indexOf("@") === -1) {
+      return name;
+    } else {
+      return `${name.slice(0, name.indexOf("@"))}, ${name.slice(name.indexOf("@") + 1)}`;
+    }
+  }
+
   popup = e => {
     switch (e.target.getAttribute("data-type")) {
       case "about":
@@ -19,16 +27,19 @@ class Popups extends Component {
         swal(
           <div>
             <h2>Future Destinations List</h2>
-            <ul>
+            <ul className="alert-list">
               {
                 this.props.placeEntries ?
                   Object.entries(this.props.placeEntries).map((entry) => {
                     return (
-                      <li>
-                        <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`}>
-                          <h3>{entry[1].name}</h3>
-                          <p>Latitude: {entry[1].lat}</p>
-                          <p>Longitude: {entry[1].lng}</p>
+                      <li className="alert-item">
+                        <a
+                          href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`}
+                          className="alert-link"
+                        >
+                          <h3>{this.formatName(entry[1].name)}</h3>
+                          <p className="alert-info">Latitude: {entry[1].lat}</p>
+                          <p className="alert-info">Longitude: {entry[1].lng}</p>
                         </a>
                       </li>
                     )

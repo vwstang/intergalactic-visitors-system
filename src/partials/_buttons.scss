@@ -1,4 +1,6 @@
 .btn {
+  outline: none;
+  border: none;
   width: 40px;
   height: 40px;
 
@@ -8,5 +10,17 @@
 
   &-list {
     background: url(assets/list-icon.png) center center / cover no-repeat;
+  }
+
+  &-search {
+    background: url(assets/search-icon.png) center center / cover no-repeat;
+  }
+
+  &-save {
+    background: url(assets/save-icon.png) center center / cover no-repeat;
+  }
+
+  &-twitter {
+    background: url(assets/twitter-icon.png) center center / cover no-repeat;
   }
 }

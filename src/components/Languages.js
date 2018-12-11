@@ -39,9 +39,21 @@ class Language extends Component {
     return result;
   }
 
+  showSelect = () => {
+    var element = document.getElementsByClassName("select-items-language");
+    element[0].classList.toggle("select-hide");
+    var otherElement = document.getElementsByClassName("select-items-wonder");
+    otherElement[0].classList.add("select-hide");
+  }
+
+  closeSelect = () => {
+    var element = document.getElementsByClassName("select-items-language");
+    element[0].classList.add("select-hide");
+  }
+
   render() {
 		return (
-      <div className="select-box select-language">
+      <div className="select-box select-language" tabIndex="0" onBlur={this.closeSelect}>
         <select
           id={this.props.id}
           name="chosenLanguage"
@@ -62,10 +74,10 @@ class Language extends Component {
             })
           }
         </select>
-        <div className="select-selected">
+        <div className="select-selected" onClick={this.showSelect}>
           <p>Search by Language</p>
         </div>
-        <div className="select-items select-hide">
+        <div className="select-items select-items-language select-hide">
           {
             this.allLangsWithCountries().map(language => {
               return (
