@@ -14,10 +14,10 @@ class LocationSearchInput extends Component {
     this.props.updateSpecValue(address);
 	}
 
-	render() {
+  render() {
 		return (
       <PlacesAutocomplete
-				value={this.props.specValue}
+        value={this.props.specValue}
 				onChange={this.handleChange}
 				onSelect={this.handleChange}
 			>
