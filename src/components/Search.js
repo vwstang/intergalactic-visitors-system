@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import apiKeys from '../data/secrets';
-import ReactDependentScript from 'react-dependent-script';
+import ReactDependentScript from "react-dependent-script";
 import LocationSearchInput from "./Autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Language from "./Languages";
 import Wonders from "./Wonders";
 import firebase from "../data/firebase";
-import swal from '@sweetalert/with-react'
+import swal from "@sweetalert/with-react";
+import Loading from "./Loading"
 
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -20,7 +21,8 @@ class Search extends Component {
       langValue: "",
       wndrValue: "",
       user: null,
-      placeEntries: {}
+      placeEntries: {},
+      loading: true
     };
   }
 
@@ -99,6 +101,9 @@ class Search extends Component {
           });
         })
       }
+    })
+    this.setState({
+      loading: false
     })
 
   }
