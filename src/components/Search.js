@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import apiKeys from '../data/secrets';
 import ReactDependentScript from 'react-dependent-script';
+import firebase from "../data/firebase";
+import apiKeys from '../data/secrets';
 import LocationSearchInput from "./Autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import swal from "@sweetalert/with-react";
+import Authentication from "./Authentication";
 import Language from "./Languages";
 import Wonders from "./Wonders";
-import firebase from "../data/firebase";
-import swal from '@sweetalert/with-react'
+import Popups from "./Popups";
 
-
-const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
 
 class Search extends Component {
@@ -24,64 +24,11 @@ class Search extends Component {
     };
   }
 
-  login = () => {
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log('success!')
-        const user = result.user;
-        this.setState({
-          user
-        });
-      });
+  updateUser = user => {
+    this.setState({
+      user
+    })
   }
-
-  logout = () => {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null
-        });
-      });
-  }
-
-  appInfo = () => {
-    swal(
-      <div>
-        <h1>The Intergalactic Visitors System welcomes you!</h1>
-        <p>
-          Welcome to Earth! Search for destination places on Earth by place, language, or by wonder (i.e. what Earthlings consider noteworthy). Login to save and view a list of your favourite destination places!
-        </p>
-        <p>(Remember to use your perception filter while visiting!)</p>
-      </div>
-    )
-  }
-
-  savedList = () => {
-    swal(
-      <div>
-        <h1>Future Destinations List</h1>
-        <ul >
-          {
-            this.state.placeEntries ? 
-            Object.entries(this.state.placeEntries).map((entry) => {
-              return (
-                <li>
-                  <a href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`} style={{ border: "blue", color: "black", textDecoration: "none" }}>
-                    {entry[1].name}
-                    <p>Latitude: {entry[1].lat}</p>
-                    <p>Longitude: {entry[1].lng}</p>
-                  </a>
-                </li>
-              )
-            })
-            :
-              <p>You have no saved places</p>          
-          }
-        </ul>
-      </div>
-    )
-  }
-
 
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
@@ -178,25 +125,19 @@ class Search extends Component {
       <main className="search">
         <nav className="search-nav">
           <ul>
-            <li>
-              {
-                this.state.user ?
-                  <button onClick={this.logout}><img src={this.state.user.photoURL} alt="" className="profile-picture" /></button> :
-                  <button onClick={this.login}><img src="/assets/alien-icon.png" alt="Login" /></button>
-                }
-            </li>
-
-            {this.state.user ?
-              <li>
-                <button onClick={this.savedList}>
-                  <img src="/assets/list-icon.png" alt="Saved Places" />
-                </button>
-              </li>
-              : null}
-
-            <li>
-              <button onClick={this.appInfo}><img src="/assets/about-icon.png" alt="About IVS" /></button>
-            </li>
+            <Authentication
+              user={this.state.user}
+              updateUser={this.updateUser}
+            />
+            <Popups
+              user={this.state.user}
+              placeEntries={this.state.placeEntries}
+              type="list"
+            />
+            <Popups
+              user={this.state.user}
+              type="about"
+            />
           </ul>
         </nav>
         <h1>IVS</h1>
