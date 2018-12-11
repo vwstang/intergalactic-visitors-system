@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../data/firebase";
+import alienIcon from "../assets/alien-icon.png";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
@@ -31,7 +32,7 @@ class Authentication extends Component {
             <button
               onClick={this.login}
               className="btn"
-              style={{ backgroundImage: `url(./alien-icon.png)`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
+              style={{ backgroundImage: `url(${alienIcon})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
             >
               {/* <img
                 src="/assets/alien-icon.png"

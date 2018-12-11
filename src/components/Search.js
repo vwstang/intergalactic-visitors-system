@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDependentScript from 'react-dependent-script';
 import firebase from "../data/firebase";
 import apiKeys from '../data/secrets';
+import errorMessages from "../data/errorMessages";
 import LocationSearchInput from "./Autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import swal from "@sweetalert/with-react";
@@ -47,7 +48,6 @@ class Search extends Component {
         })
       }
     })
-
   }
 
   handleChange = (e) => {
@@ -70,30 +70,38 @@ class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let locality = "";
-    let country = "";
 
-    geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
-      .then(res => {
-        // Google Places API geocodeByAddress method results includes address components, which show names of country, principalities, localities, etc. The following code is used to iterate through the entire address components section of the results to find the country and locality and stores to variables to be sent to results page.
-        res[0].address_components.forEach((component, i) => {
-          component.types.forEach(addressComponentType => {
-            if (addressComponentType === "country") {
-              country = res[0].address_components[i].long_name;
-            }
-            if (addressComponentType === "locality" || addressComponentType === "sublocality") {
-              locality = res[0].address_components[i].long_name;
-            }
+    if (`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}` !== "") {
+      let locality = "";
+      let country = "";
+  
+      geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
+        .then(res => {
+          // Google Places API geocodeByAddress method results includes address components, which show names of country, principalities, localities, etc. The following code is used to iterate through the entire address components section of the results to find the country and locality and stores to variables to be sent to results page.
+          res[0].address_components.forEach((component, i) => {
+            component.types.forEach(addressComponentType => {
+              if (addressComponentType === "country") {
+                country = res[0].address_components[i].long_name;
+              }
+              if (addressComponentType === "locality" || addressComponentType === "sublocality") {
+                locality = res[0].address_components[i].long_name;
+              }
+            })
           })
+          return getLatLng(res[0]);
         })
-        return getLatLng(res[0]);
+        .then(latLng => {
+          let destName;
+          locality === "" ? destName = country : destName = `${locality}@${country}`;
+          window.location.href = `/results/${destName}/${latLng.lat}/${latLng.lng}`;
+        })
+        .catch(err => console.error('Error', err));
+    } else {
+      swal({
+        text: errorMessages[Math.floor(Math.random() * errorMessages.length)],
+        icon: "error"
       })
-      .then(latLng => {
-        let destName;
-        locality === "" ? destName = country : destName = `${locality}@${country}`;
-        window.location.href = `/results/${destName}/${latLng.lat}/${latLng.lng}`;
-      })
-      .catch(err => console.error('Error', err));
+    }
 	}
 
   isDisabled = (whichInput) => {
@@ -183,7 +191,7 @@ class Search extends Component {
             <i className="fas fa-space-shuttle"></i>
           </button>
           <button type="reset" className="reset" onClick={this.handleReset}>
-            <i class="fas fa-times-circle"></i>
+            <i className="fas fa-times-circle"></i>
           </button>
 
         </form>

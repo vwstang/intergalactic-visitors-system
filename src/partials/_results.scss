@@ -2,7 +2,7 @@
 // Results header
 .results-header {
     margin: 0 auto;
-    background: linear-gradient( rgba(12,5,15,0), rgba(12,5,15,1) ), url(resultBackground.jpg);
+    background: linear-gradient( rgba(12,5,15,0), rgba(12,5,15,1) ), url(assets/resultBackground.jpg);
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -39,6 +39,7 @@
 // Nav items in one row
 .results-nav li {
     display: inline-block;
+    margin-right: 10px;
 }
 
 .list-icon {
@@ -69,26 +70,20 @@
     margin: 0;
 }
 
-// Buttons
-.share button {
-    background: none;
-    outline: none;
-    border: none;
-}
-
 // Hover effect on share icons
-.save-icon, .twitter-icon {
-    transform: scale(1);
-    transition: transform 0.3s;
-}
-
-.save-icon:hover, .twitter-icon:hover {
-    transform: scale(1.1);
-}
-
-.save-icon {
+.btn-save {
     margin-right: 10px;
 }
+
+.btn-save, .btn-twitter {
+    transform: scale(1);
+    transition: transform 0.3s;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
 
 // Container for satellite photo
 .sat {
@@ -118,7 +113,7 @@
 .zoom {
     height: 71px;
     width: 350px;
-    background: url(sat-zoom.png);
+    background: url(assets/sat-zoom.png);
     background-repeat: no-repeat;
     background-position-x: right;
 
@@ -132,7 +127,7 @@
 // Footer
 footer {
     padding: 30px 0 60px 0;
-    background: linear-gradient( rgba(12,5,15,1), rgba(12,5,15,0) ), url(resultBackground.jpg);
+    background: linear-gradient( rgba(12,5,15,1), rgba(12,5,15,0) ), url(assets/resultBackground.jpg);
     background-position-x: center;
     background-position-y: top;
     background-size: cover;
