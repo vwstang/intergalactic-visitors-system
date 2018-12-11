@@ -127,7 +127,7 @@ class Search extends Component {
     // LocationSearchInput.setState = ({
     //   address: ""
     // })
-    this.setState = ({
+    this.setState({
       specValue: "",
       langValue: "",
       wndrValue: ""
