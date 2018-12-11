@@ -79,13 +79,12 @@ class EarthWeather extends Component {
     return (
       <div className="weather-info">
         <p>{`${weather}`}</p>
-        <p>Current: {currTemp}&deg;C</p>
-        <p>Low: {minTemp}&deg;C</p>
-        <p>High: {maxTemp}&deg;C</p>
-        <p>Wind speed: {windSpeed} km/h</p>
-        <p>Wind direction: {windDir}</p>
-        <p>Humidity: {humidity}</p>
-        <p>Pressure: {pressure} hPa</p>
+        <p>Currently {currTemp}&deg;C</p>
+        {/* <p>Low: {minTemp}&deg;C</p> */}
+        {/* <p>High: {maxTemp}&deg;C</p> */}
+        <p>Winds @ {windSpeed} km/h {windDir}</p>
+        {/* <p>Humidity: {humidity}</p> */}
+        {/* <p>Pressure: {pressure} hPa</p> */}
       </div>
     )
   }

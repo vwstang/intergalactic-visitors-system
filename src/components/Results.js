@@ -123,7 +123,7 @@ class Results extends Component {
             dbRef.push(newPlace)
             swal({
               title: "Destination added!",
-              text: "Click the [] to view all destinations saved",
+              text: "Click the list icon to view all destinations saved!",
               icon: "success"
             })
           }
@@ -131,7 +131,7 @@ class Results extends Component {
           dbRef.push(newPlace)
           swal({
             title: "Destination added!",
-            text: "Click the [] to view all destinations saved",
+            text: "Click the list icon to view all destinations saved!",
             icon: "success"
           })
         }
@@ -212,35 +212,35 @@ class Results extends Component {
             <div className="place-heading">
               <h1>{this.formatName(this.props.match.params.name)}</h1>
             </div>
-          </div>
-
-          <div className="details clearfix">
-            <div className="stats">
-              <div className="info">
-                <EarthWeather
-                  lng={this.props.match.params.lng}
-                  lat={this.props.match.params.lat}
-                />
-                {/* show lat and lng to 2 decimal points */}
-                <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
-              </div>
-              <div className="share">
+            <div className="details clearfix">
+              <div className="stats">
+                <div className="info">
+                  <EarthWeather
+                    lng={this.props.match.params.lng}
+                    lat={this.props.match.params.lat}
+                  />
+                  {/* show lat and lng to 2 decimal points */}
+                  <p>{"{ "}{parseFloat(Number(this.props.match.params.lng)).toFixed(2)}/{parseFloat(Number(this.props.match.params.lat)).toFixed(2)}{" }"}</p>
+                </div>
+                <div className="share">
                   <button className="save-icon" onClick={this.handleNewPlace}>
-                    <img src="/assets/save-icon.png" alt=""/>
+                    <img src="/assets/save-icon.png" alt="" />
                   </button>
-                  <img className="twitter-icon" src="/assets/twitter-icon.png" alt=""/>
+                  <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
+                </div>
               </div>
-            </div>
-            <div className="sat">
-              <div className="zoom"></div>
-              <div>
-                <NASAPhotos
-                  lng={this.props.match.params.lng}
-                  lat={this.props.match.params.lat}
-                />
+              <div className="sat">
+                <div className="zoom"></div>
+                <div>
+                  <NASAPhotos
+                    lng={this.props.match.params.lng}
+                    lat={this.props.match.params.lat}
+                  />
+                </div>
               </div>
             </div>
           </div>
+          <h2 className="gallery-heading">Snapshots</h2>
           <EarthPhotos
             lng={this.props.match.params.lng}
             lat={this.props.match.params.lat}
