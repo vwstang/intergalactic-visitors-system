@@ -62,7 +62,7 @@ class Search extends Component {
         <h1>Future Destinations List</h1>
         <ul >
           {
-            this.state.placeEntries ? 
+            this.state.placeEntries ?
             Object.entries(this.state.placeEntries).map((entry) => {
               return (
                 <li>
@@ -75,7 +75,7 @@ class Search extends Component {
               )
             })
             :
-              <p>You have no saved places</p>          
+              <p>You have no saved places</p>
           }
         </ul>
       </div>
@@ -102,7 +102,6 @@ class Search extends Component {
     })
 
   }
-
 
   handleChange = (e) => {
     this.setState({
@@ -173,6 +172,17 @@ class Search extends Component {
     }
   }
 
+  handleReset = () => {
+    // LocationSearchInput.setState = ({
+    //   address: ""
+    // })
+    this.setState = ({
+      specValue: "",
+      langValue: "",
+      wndrValue: ""
+    });
+  }
+
   render() {
     return (
       <main className="search">
@@ -231,6 +241,10 @@ class Search extends Component {
           <button type="submit">
             <i className="fas fa-space-shuttle"></i>
           </button>
+          <button type="reset" className="reset" onClick={this.handleReset}>
+            <i class="fas fa-times-circle"></i>
+          </button>
+
         </form>
         <div className="title">Intergalactic Visitors System: Earth</div>
       </main>

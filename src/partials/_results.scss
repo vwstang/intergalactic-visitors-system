@@ -53,8 +53,8 @@
 
 // Container for stats and share/save options
 .stats {
-    width: 50%;
-    float: left;
+    width: 40%;
+    float: right;
     text-align: center;
     margin-top: 71px;
 }
@@ -94,6 +94,23 @@
 .sat {
     width: 50%;
     float: right;
+    position: relative;
+}
+
+// Caption for satellite photo
+.sat-caption {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+// Move caption over image
+.overlay {
+    background: rgba(12,5,15,0.8);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 5px 20px;
 }
 
 // NASA satellite photo
