@@ -21,14 +21,22 @@ nav button {
     background: none;
     border: none;
     outline: none;
+    transform: rotate(0deg);
+    transition: transform 0.4s;
 }
 
 nav img {
     width: 40px;
+    transform: rotate(0deg);
+    transition: transform 0.4s;
 }
 
 nav button:hover, nav button:focus, nav a img:hover {
     transform: rotate(15deg);
+}
+
+nav button:active {
+    transform: rotate(0deg);
 }
 
 nav ul, nav li {
@@ -88,9 +96,9 @@ input:focus, select:focus {
     outline-color: $primary-color;
 }
 
-// Make other input boxes invisible when disabled
+// Make other input boxes less visible when disabled
 input:disabled, select:disabled {
-    opacity: 0.5;
+    display: none;
 }
 
 // Autocomplete dropdown
@@ -98,19 +106,21 @@ input:disabled, select:disabled {
     position: absolute;
     width: 100%;
     max-height: 500px;
-    z-index: 50;
+    z-index: 500;
 }
 
 // Autocomplete options
 .suggestion-item {
-    background: rgba(12, 5, 15, 1);
+    background: rgba(12, 5, 15, 0.6);
     font-size: 2rem;
     margin-bottom: 5px;
+    padding: 5px 0;
     &--active {
         background: rgba(242, 165, 59, 0.6);
         color: $secondary-color;
         font-size: 2rem;
         margin-bottom: 5px;
+        padding: 5px 0;
     }
 }
 
@@ -121,9 +131,10 @@ select {
     position: relative;
 }
 
-.select-image {
-    position: absolute;
-}
+// // Dropdown in select
+// .dropdown {
+//     background: url(dropdown-icon.png);
+// }
 
 // COME BACK TO OPTION STYLING
 
