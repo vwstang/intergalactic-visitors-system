@@ -214,6 +214,18 @@ class Results extends Component {
               <h1>{this.formatName(this.props.match.params.name)}</h1>
             </div>
             <div className="details clearfix">
+              <div className="sat">
+                <div className="zoom"></div>
+                <div>
+                  <NASAPhotos
+                    lng={this.props.match.params.lng}
+                    lat={this.props.match.params.lat}
+                  />
+                  <div className="overlay">
+                    <p className="sat-caption">Satellite View</p>
+                  </div>
+                </div>
+              </div>
               <div className="stats">
                 <div className="info">
                   <EarthWeather
@@ -230,15 +242,6 @@ class Results extends Component {
                   <a href={`http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`} target="_blank">
                     <img className="twitter-icon" src="/assets/twitter-icon.png" alt="" />
                   </a>
-                </div>
-              </div>
-              <div className="sat">
-                <div className="zoom"></div>
-                <div>
-                  <NASAPhotos
-                    lng={this.props.match.params.lng}
-                    lat={this.props.match.params.lat}
-                  />
                 </div>
               </div>
             </div>
