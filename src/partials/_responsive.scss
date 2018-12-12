@@ -1,0 +1,151 @@
+// Responsive styles
+// Search page
+// Shrink title
+@media (max-width: 865px) {
+    .title {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 690px) {
+    .title {
+        font-size: 3rem;
+        margin-top: 20px;
+    }
+}
+
+// Stop floating nav, move to top
+@media (max-width: 645px) {
+    .search-nav {
+        position: relative;
+        margin: 15px;
+        top: 0;
+    }
+
+    .search-nav li {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .search h1 {
+        padding-top: 10px;
+    }
+
+    .search form {
+        padding-bottom: 25px;
+    }
+
+    .results-nav ul {
+        text-align: center;
+        padding-right: 0;
+    }
+}
+
+// Turn off 100vh
+@media (max-height: 620px) {
+    .search {
+        height: auto;
+    }
+
+    .title {
+        position: relative;
+    }
+
+    // Position dropdown menus relatively
+    .autocomplete-dropdown-container {
+        position: relative;
+    }
+
+    .select-items {
+        position: relative;
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-height: 830px) {
+    // Shrink dropdown box
+    .select-items {
+        height: 150px;
+    }
+}
+
+@media (max-width: 450px) {
+    // Shrink search elements
+    .search form, input[type=text], select, .select-box, .select-selected, .select-items {
+        width: 300px;
+        font-size: 2rem;
+    }
+
+    .search h1 {
+        font-size: 20rem;
+    }
+}
+
+// Results page
+@media (max-width: 1000px) {
+    // Increase width of stats
+    .stats {
+        width: 50%;
+    }
+}
+
+@media (max-width: 800px) {
+    // Stop floating stats
+    .details {
+        padding-bottom: 20px;
+    }
+    .stats, .sat {
+        width: 100%;
+        float: none;
+    }
+
+    .stats {
+        margin-top: 20px;
+    }
+
+    .sat {
+        text-align: center;
+    }
+
+    .zoom {
+        width: 100%;
+        background-position-x: center;
+    }
+
+    .overlay {
+        left: calc(50% - 150px);
+    }
+}
+
+// Shrink "visit" text
+@media (max-width: 600px) {
+    .results-header h2 {
+        font-size: 4rem;
+    }
+}
+
+// Shrink info text
+@media (max-width: 520px) {
+    .info {
+        font-size: 3rem;
+    }
+}
+
+// Shrink "visit" text
+@media (max-width: 500px) {
+    .results-header h2 {
+        font-size: 3rem;
+    }
+}
+
+// Shrink info and "visit" text
+@media (max-width: 380px) {
+    .info {
+        font-size: 2rem;
+    }
+
+    .results-header h2 {
+        font-size: 2.5rem;
+    }
+}
