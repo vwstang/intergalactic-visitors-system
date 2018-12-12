@@ -14,20 +14,14 @@ class NASAPhotos extends Component {
     componentDidMount(){
         // axios request
         axios({
-            url: 'https://proxy.hackeryou.com',
+            url: `https://api.nasa.gov/planetary/earth/imagery`,
             dataResponse: 'json',
             method: 'GET',
-            paramsSerializer: function (params) {
-                return Qs.stringify(params, { arrayFormat: 'brackets' })
-            },
             params: {
-                reqUrl: `https://api.nasa.gov/planetary/earth/imagery`,
-                params: {
-                    lat: this.props.lat,
-                    lon: this.props.lng,
-                    cloud_score: true,
-                    api_key: apiKeys.nasa
-                }
+                lat: this.props.lat,
+                lon: this.props.lng,
+                cloud_score: true,
+                api_key: apiKeys.nasa     
             }
         }).then((response) => {
             this.setState({
