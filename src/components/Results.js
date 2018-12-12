@@ -6,7 +6,8 @@ import Popups from "./Popups";
 import NASAPhotos from "./NASAPhotos";
 import EarthWeather from "./EarthWeather";
 import EarthPhotos from "./EarthPhotos";
-
+import Fitty from 'fitty';
+import fitty from "fitty";
 
 const auth = firebase.auth();
 
@@ -111,9 +112,12 @@ class Results extends Component {
         })
       }
     })
-    this.setState({
-      loading: false
-    })
+    const text = document.getElementsByClassName("fit")[0];
+    fitty(text, {
+      multiLine: true,
+      minSize: 12,
+      maxSize: 320
+    });
   }
 
   render() {
@@ -145,7 +149,9 @@ class Results extends Component {
             </nav>
             <h2>Visit...</h2>
             <div className="place-heading">
-              <h1>{this.formatName(this.props.match.params.name)}</h1>
+              <span>
+                <h1 className="fit">{this.formatName(this.props.match.params.name)}</h1>
+              </span>
             </div>
             <div className="details clearfix">
               <div className="sat">
@@ -176,7 +182,7 @@ class Results extends Component {
                   />
                   <button
                     className="btn btn-twitter"
-                    onClick={() => window.location.href = `http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`}  
+                    onClick={() => window.location.href = `http://twitter.com/share?url=http%3A%2F%2Fproject6-ivs.firebaseapp.com%2Fresults%2F${this.props.match.params.name}%2F${this.props.match.params.lat}%2F${this.props.match.params.lat}&text=Check%20out%20my%20future%20Earth%20destination!`}
                   />
                 </div>
               </div>

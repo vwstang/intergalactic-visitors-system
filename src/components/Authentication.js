@@ -6,7 +6,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
 
 class Authentication extends Component {
-  
+
   login = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
@@ -26,18 +26,16 @@ class Authentication extends Component {
         {
           this.props.user ?
             <button
+              tabIndex="0"
               onClick={this.logout}
               className="btn"
               style={{ backgroundImage: `url(${this.props.user.photoURL})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }} /> :
             <button
+              tabIndex="0"
               onClick={this.login}
               className="btn"
               style={{ backgroundImage: `url(${alienIcon})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
             >
-              {/* <img
-                src="/assets/alien-icon.png"
-                alt="Login"
-              /> */}
             </button>
         }
       </li>
