@@ -6,14 +6,23 @@
 
   &-about {
     background: url(assets/about-icon.png) center center / cover no-repeat;
+    &:hover {
+      background: url(assets/about-icon-hover.png) center center / cover no-repeat;
+    }
   }
 
   &-list {
     background: url(assets/list-icon.png) center center / cover no-repeat;
+    &:hover {
+      background: url(assets/list-icon-hover.png) center center / cover no-repeat;
+    }
   }
 
   &-search {
     background: url(assets/search-icon.png) center center / cover no-repeat;
+    &:hover {
+      background: url(assets/search-icon-hover.png) center center / cover no-repeat;
+    }
   }
 
   &-save {
@@ -22,5 +31,13 @@
 
   &-twitter {
     background: url(assets/twitter-icon.png) center center / cover no-repeat;
+  }
+}
+
+.btn-alien {
+  background: url(assets/alien-icon.png) center center / cover no-repeat;
+
+  &:hover {
+    background: url(assets/alien-icon-hover.png) center center / cover no-repeat;
   }
 }
