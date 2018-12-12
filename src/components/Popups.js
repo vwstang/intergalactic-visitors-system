@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import swal from "@sweetalert/with-react";
-import { Link } from "react-router-dom";
 
 class Popups extends Component {
   formatName = name => {

@@ -6,7 +6,6 @@ import Popups from "./Popups";
 import NASAPhotos from "./NASAPhotos";
 import EarthWeather from "./EarthWeather";
 import EarthPhotos from "./EarthPhotos";
-import Fitty from 'fitty';
 import fitty from "fitty";
 
 const auth = firebase.auth();
