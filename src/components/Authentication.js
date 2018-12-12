@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../data/firebase";
-import alienIcon from "../assets/alien-icon.png";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
