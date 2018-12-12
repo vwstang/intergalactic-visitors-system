@@ -22,7 +22,6 @@ class Search extends Component {
       wndrValue: "",
       user: null,
       placeEntries: {}
-      // invisible: true
     };
   }
 
