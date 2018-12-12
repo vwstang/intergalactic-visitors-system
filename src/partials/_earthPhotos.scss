@@ -18,16 +18,17 @@
     position: relative;
     margin-bottom: 10px;
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.3);
-    }
+    // This style was to add a layer to darken the photos pulled from flickr so that they fit better with our site's theme. However, because they sat on top of the pictures, attribution text in the title of the images would not appear on hover. As a result, we have decided to comment these styles out so that the attribution text works.
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   z-index: 2;
+    //   background: rgba(0, 0, 0, 0.3);
+    // }
   }
 
   &-image {
