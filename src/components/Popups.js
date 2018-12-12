@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import swal from "@sweetalert/with-react";
+import { Link } from "react-router-dom";
 
 class Popups extends Component {
   formatName = name => {
@@ -34,7 +35,7 @@ class Popups extends Component {
                     return (
                       <li className="alert-item">
                         <a
-                          href={`../../${entry[1].name}/${entry[1].lat}/${entry[1].lng}`}
+                          href={`/results/${entry[1].name}/${entry[1].lat}/${entry[1].lng}`}
                           className="alert-link"
                         >
                           <h3>{this.formatName(entry[1].name)}</h3>

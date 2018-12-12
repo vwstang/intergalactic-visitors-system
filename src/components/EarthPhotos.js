@@ -36,12 +36,13 @@ class EarthPhotos extends Component {
         format: "json",
         nojsoncallback: 1,
         safe_search: 1,
+        extras: "owner_name",
         lat: coordsLat,
         lon: coordsLon,
-        per_page: 50
+        per_page: 40
       }
     }).then(res => {
-      const urlList = res.data.photos.photo.map(photo => [photo.id, this.constructFlickrURL(photo), photo.title])
+      const urlList = res.data.photos.photo.map(photo => [photo.id, this.constructFlickrURL(photo), photo.title, photo.ownername])
       this.setState({
         photoList: urlList
       })
@@ -58,12 +59,16 @@ class EarthPhotos extends Component {
         <ul className="earthlingPhotos">
           {
             this.state.photoList.map(photo => {
+              let attribution;
+              photo[2] === "" ? attribution = `Untitled photo by ${photo[3]} on flickr.com` : attribution = `${photo[2]} by ${photo[3]} on flickr.com`;
               return (
                 <li key={photo[0]} className="earthlingPhotos-item">
                   <img
                     src={photo[1]}
-                    alt={photo[2]}
+                    title={attribution}
+                    alt={attribution}
                     className="earthlingPhotos-image"
+                    style={{ position: "relative", zIndex: "2"}}
                   />
                 </li>
               )
