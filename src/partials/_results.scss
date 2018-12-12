@@ -3,19 +3,26 @@
 .results-header {
     margin: 0 auto;
     background: linear-gradient( rgba(12,5,15,0), rgba(12,5,15,1) ), url(assets/resultBackground.jpg);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
 .place-heading {
     text-align: center;
+    width: 100vw;
+    margin: 0 auto;
+    padding: 0 10px 160px 10px;
 }
 
-.place-heading h1 {
-    font-size: 25rem;
-    line-height: 0.8;
-    padding-bottom: 200px;
+.place-heading span {
+    display: block;
 }
+
+.fit {
+    font-size: 20rem;
+    line-height: 0.8;
+}
+
 
 .results h2, .gallery-heading {
     padding-top: 30px;
@@ -138,6 +145,7 @@ footer h3 {
     font-size: 3rem;
     text-align: center;
     line-height: 1;
+    color: $accent-color;
 }
 
 footer p {
@@ -146,4 +154,5 @@ footer p {
     margin: 0;
     font-weight: 700;
     font-size: 2rem;
+    color: $accent-color;
 }

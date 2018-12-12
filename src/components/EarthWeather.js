@@ -72,7 +72,7 @@ class EarthWeather extends Component {
       <div className="weather-info">
         <p>{`${weather}`}</p>
         <p>Currently {temp}&deg;C</p>
-        <p>Winds @ {windSpeed} km/h {windDir}</p>
+        <p>Winds @ {parseFloat(Number(windSpeed)).toFixed(2)} km/h {windDir}</p>
       </div>
     )
   }

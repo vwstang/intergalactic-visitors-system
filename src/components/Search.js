@@ -22,6 +22,7 @@ class Search extends Component {
       wndrValue: "",
       user: null,
       placeEntries: {}
+      // invisible: true
     };
   }
 
@@ -52,7 +53,7 @@ class Search extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
+      wndrValue: e
     })
   }
 
@@ -74,7 +75,7 @@ class Search extends Component {
     if (`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}` !== "") {
       let locality = "";
       let country = "";
-  
+
       geocodeByAddress(`${this.state.specValue}${this.state.langValue}${this.state.wndrValue}`)
         .then(res => {
           // Google Places API geocodeByAddress method results includes address components, which show names of country, principalities, localities, etc. The following code is used to iterate through the entire address components section of the results to find the country and locality and stores to variables to be sent to results page.
@@ -127,15 +128,23 @@ class Search extends Component {
     }
   }
 
+  isHidden = () => {
+    if (this.state.specValue !== "" || this.state.langValue !== "" || this.state.wndrValue !== "" ) {
+      return false
+    }
+    return true
+  }
+
   handleReset = () => {
-    // LocationSearchInput.setState = ({
-    //   address: ""
-    // })
     this.setState({
       specValue: "",
       langValue: "",
       wndrValue: ""
     });
+    document.getElementsByClassName("select-lang")[0].selectedIndex=0;
+    document.getElementsByClassName("chosen-lang")[0].innerHTML = "Select by Language";
+    document.getElementsByClassName("select-wond")[0].selectedIndex = 0;
+    document.getElementsByClassName("chosen-wond")[0].innerHTML = "Select by Wonder";
   }
 
   render() {
@@ -187,10 +196,10 @@ class Search extends Component {
             handleChange={this.handleChange}
             isDisabled={this.isDisabled}
           />
-          <button type="submit">
+          <button type="submit" disabled={this.isHidden()} tabIndex="0">
             <i className="fas fa-space-shuttle"></i>
           </button>
-          <button type="reset" className="reset" onClick={this.handleReset}>
+          <button type="reset" onClick={this.handleReset} disabled={this.isHidden()} tabIndex="0">
             <i className="fas fa-times-circle"></i>
           </button>
 

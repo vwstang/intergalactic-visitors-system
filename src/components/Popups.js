@@ -60,7 +60,7 @@ class Popups extends Component {
   drawButton = () => {
     return (
       <li>
-        <button onClick={this.popup} data-type={this.props.type} className={`btn btn-${this.props.type}`} />
+        <button onClick={this.popup} data-type={this.props.type} className={`btn btn-${this.props.type}`} tabIndex="0" />
       </li>
     )
   }
