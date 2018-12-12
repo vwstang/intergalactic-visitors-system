@@ -15,8 +15,8 @@
     background: url(assets/list-icon.png) center center / cover no-repeat;
     &:hover {
       background: url(assets/list-icon-hover.png) center center / cover no-repeat;
+      }
     }
-  }
 
   &-search {
     background: url(assets/search-icon.png) center center / cover no-repeat;
@@ -40,4 +40,52 @@
   &:hover {
     background: url(assets/alien-icon-hover.png) center center / cover no-repeat;
   }
+}
+
+.search .btn-about:hover::after, .search .btn-alien:hover::after, .search .btn-list:hover::after, .search .btn-user:hover::after{
+  position: absolute;
+  background: $highlight-color;
+  top: 22px;
+  right: 45px;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 3px 5px;
+  transform: rotate(-15deg);
+}
+
+.results .btn-about:hover::after, .results .btn-alien:hover::after, .results .btn-list:hover::after, .btn-search:hover::after, .results .btn-user:hover::after {
+  position: absolute;
+  background: $highlight-color;
+  top: 55px;
+  right: 0;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 3px 5px;
+  transform: rotate(-15deg);
+}
+
+.btn-about:hover::after {
+  content: 'About';
+}
+
+.btn-search:hover::after {
+  content: 'Search';
+}
+
+.btn-list:hover::after {
+  content: 'Saved';
+}
+
+.btn-alien:hover::after {
+  content: 'Login';
+}
+
+.btn-user:hover::after {
+  content: 'Logout';
+}
+
+.search .btn-list:hover::after {
+  top: 17px;
 }
