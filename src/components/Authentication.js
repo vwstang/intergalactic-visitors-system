@@ -33,8 +33,8 @@ class Authentication extends Component {
             <button
               tabIndex="0"
               onClick={this.login}
-              className="btn"
-              style={{ backgroundImage: `url(${alienIcon})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
+              className="btn btn-alien"
+              style={{ backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
             >
             </button>
         }
