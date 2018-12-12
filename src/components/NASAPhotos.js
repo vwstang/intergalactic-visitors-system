@@ -13,10 +13,7 @@ class NASAPhotos extends Component {
 
     componentDidMount(){
         // axios request
-        axios({
-            url: `https://api.nasa.gov/planetary/earth/imagery`,
-            method: 'GET',
-            dataType: 'json',
+      axios.get("https://api.nasa.gov/planetary/earth/imagery", {
             params: {
                 lat: this.props.lat,
                 lon: this.props.lng,
