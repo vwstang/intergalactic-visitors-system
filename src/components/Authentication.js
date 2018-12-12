@@ -36,10 +36,6 @@ class Authentication extends Component {
               className="btn"
               style={{ backgroundImage: `url(${alienIcon})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", borderRadius: "50%" }}
             >
-              {/* <img
-                src="/assets/alien-icon.png"
-                alt="Login"
-              /> */}
             </button>
         }
       </li>

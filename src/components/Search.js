@@ -53,7 +53,7 @@ class Search extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
+      wndrValue: e
     })
   }
 
@@ -141,6 +141,10 @@ class Search extends Component {
       langValue: "",
       wndrValue: ""
     });
+    document.getElementsByClassName("select-lang")[0].selectedIndex=0;
+    document.getElementsByClassName("chosen-lang")[0].innerHTML = "Select by Language";
+    document.getElementsByClassName("select-wond")[0].selectedIndex = 0;
+    document.getElementsByClassName("chosen-wond")[0].innerHTML = "Select by Wonder";
   }
 
   render() {

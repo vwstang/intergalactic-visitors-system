@@ -3,10 +3,9 @@ import "country-language";
 
 const CountryLanguage = require('country-language');
 
-
 class Language extends Component {
-	handleChange = (event) => {
-    const selectionValue = event.target.value;
+	handleChange = (lang) => {
+    const selectionValue = lang;
     let resultValue;
     if (selectionValue === "") {
       resultValue = "";
@@ -51,15 +50,27 @@ class Language extends Component {
     element[0].classList.add("select-hide");
   }
 
+  selectItem = (event) => {
+    this.closeSelect();
+    let lang = event.target.id;
+    let options = document.getElementsByClassName("select-lang")[0].options;
+    for ( let i = 0; i < options.length; i++ ) {
+      if ( lang === options[i].value ) {
+        document.getElementsByClassName("select-lang")[0].selectedIndex = i;
+      }
+    }
+    this.handleChange(lang);
+    document.getElementsByClassName("chosen-lang")[0].innerHTML = event.target.innerHTML;
+  }
+
   render() {
 		return (
-      <div className="select-box select-language" tabIndex="0" onBlur={this.closeSelect}>
+      <div className={this.props.isDisabled("langValue") ? "select-box select-language invisible" : "select-box select-language"} tabIndex="0" onBlur={this.closeSelect} >
         <select
+          className="select-lang"
           id={this.props.id}
           name="chosenLanguage"
           placeholder="Search by Language"
-          onChange={this.handleChange}
-          disabled={this.props.isDisabled("langValue")}
         >
           <option value="" className="dropdown">
             Search by Language
@@ -75,13 +86,13 @@ class Language extends Component {
           }
         </select>
         <div className="select-selected" onClick={this.showSelect}>
-          <p>Search by Language</p>
+          <p className="chosen-lang">Search by Language</p>
         </div>
         <div className="select-items select-items-language select-hide">
           {
             this.allLangsWithCountries().map(language => {
               return (
-                <div id={language.iso639_3} key={language.iso639_3} className="languageOption">
+                <div id={language.iso639_3} key={language.iso639_3} className="languageOption" onClick={this.selectItem}>
                   {language.name}
                 </div>
               )
