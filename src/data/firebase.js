@@ -1,14 +1,13 @@
-import firebase from 'firebase';
+import firebase from "firebase";
+import apiKeys from "./secrets";
 
-// Initialize Firebase
-var config = {
-apiKey: "AIzaSyCmIY5XWzXpf_03MbLzqVmk-umR3zVvjaY",
-authDomain: "project6-ivs.firebaseapp.com",
-databaseURL: "https://project6-ivs.firebaseio.com",
-projectId: "project6-ivs",
-storageBucket: "project6-ivs.appspot.com",
-messagingSenderId: "336359386002"
-};
-firebase.initializeApp(config);
+firebase.initializeApp({
+  apiKey: apiKeys.firebase,
+  authDomain: "intergalactic-visitors-system.firebaseapp.com",
+  databaseURL: "https://intergalactic-visitors-system.firebaseio.com",
+  projectId: "intergalactic-visitors-system",
+  storageBucket: "intergalactic-visitors-system.appspot.com",
+  messagingSenderId: "802241710799"
+});
 
 export default firebase;

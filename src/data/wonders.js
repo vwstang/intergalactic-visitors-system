@@ -1,4 +1,3 @@
-
 const wonders = {
   pyramids: "Great Pyramid of Giza",
   colosseum: "Flavian Amphitheatre",

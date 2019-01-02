@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import './App.scss';
-
+import "./App.scss";
 import Search from "./components/Search";
 import Results from "./components/Results";
 import NotFound from "./components/NotFound";
