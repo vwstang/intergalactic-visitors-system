@@ -1,9 +1,9 @@
 # Intergalactic Visitors System
 ### HackerYou Fall 2018 FT Bootcamp Project 6
 ##### Contributors:
-- Iman Ahsan ([GitHub](https://github.com/))
+- Iman Ahsan ([GitHub](https://github.com/imanahsann))
 - Vincent Tang ([GitHub](https://github.com/vwstang))
-- Sally Siu ([GitHub](https://github.com/))
+- Sally Siu ([GitHub](https://github.com/sallysiu))
 
 This branch contains our final submission for Project 6 and will not be updated going forward aside from this readme.
 
